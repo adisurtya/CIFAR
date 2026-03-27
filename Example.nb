@@ -1,0 +1,4036 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[    175564,       4035]
+NotebookOptionsPosition[    166660,       3880]
+NotebookOutlinePosition[    167128,       3898]
+CellTagsIndexPosition[    167085,       3895]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["CIFAR Example", "Title",
+ CellChangeTimes->{{3.9531447023380404`*^9, 
+  3.953144704900693*^9}},ExpressionUUID->"3377bf39-fe48-4d87-b1bc-\
+39c96dd9bdc3"],
+
+Cell[TextData[{
+ "In this notebook, we present a brief example for the proper usage of ",
+ StyleBox["CIFAR",
+  FontSlant->"Italic"],
+ " (Color Invariant Feynman Amplitude Reducer, pronounced \
+\[OpenCurlyDoubleQuote]cipher\[CloseCurlyDoubleQuote]), a Mathematica package \
+to express the color factors of Feynman diagrams in terms of Casimir \
+invariants and dimensions of various representations of an arbitrary color \
+algebra."
+}], "Text",
+ CellChangeTimes->{{3.953144707556939*^9, 3.9531447531162367`*^9}, {
+  3.953150478670923*^9, 
+  3.953150516023039*^9}},ExpressionUUID->"9ce1088c-ea27-4f67-b33f-\
+78dd2e8a6407"],
+
+Cell[CellGroupData[{
+
+Cell["Setup & Documentation ", "Section",
+ CellChangeTimes->{{3.953144813120797*^9, 
+  3.953144847732127*^9}},ExpressionUUID->"4295f11d-0ca6-40ed-9b40-\
+3d321e2b7b93"],
+
+Cell[CellGroupData[{
+
+Cell["Loading the package", "Subsection",
+ CellChangeTimes->{{3.953144854211102*^9, 
+  3.953144862744781*^9}},ExpressionUUID->"d2831429-f26b-4598-8702-\
+aa989a032914"],
+
+Cell[TextData[{
+ "To load the package, set the notebook directory to the one where ",
+ StyleBox["CIFAR",
+  FontSlant->"Italic"],
+ " is installed."
+}], "Text",
+ CellChangeTimes->{{3.9531466033015842`*^9, 
+  3.953146620622139*^9}},ExpressionUUID->"ce897342-a90d-4b58-8d07-\
+1e5fa1c259da"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.953144866934244*^9, 3.9531448779608097`*^9}, 
+   3.9531449080823812`*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"c9e7935c-ed80-42d9-9e49-e5901ec6b946"],
+
+Cell[BoxData["\<\"/Users/adisuresh/Library/CloudStorage/GoogleDrive-adisur@\
+stanford.edu/My Drive/Projects/RVVxV/anc/CIFAR copy\"\>"], "Output",
+ CellChangeTimes->{
+  3.9531448785457153`*^9, 3.953144908563093*^9, 3.9531598062323503`*^9, 
+   3.953314018277087*^9, 3.953316203149199*^9, 3.953381241581108*^9, {
+   3.9544265636362343`*^9, 3.954426581807138*^9}, 3.954527203720886*^9, 
+   3.9545272421389093`*^9, 3.961778734285824*^9, {3.966988420442966*^9, 
+   3.9669884385990562`*^9}, 3.9669899609964323`*^9, 3.9669903865884*^9, 
+   3.966990455797093*^9, 3.966990523215369*^9, 3.9669907061670847`*^9, 
+   3.966990850179922*^9, 3.966991018184019*^9, 3.9669911435976057`*^9, 
+   3.966991201015192*^9, 3.966991252161322*^9, 3.966991308410327*^9, 
+   3.96699300561969*^9, 3.966993124090438*^9, 3.966993392017313*^9, 
+   3.96699344845607*^9, 3.9669938461078444`*^9, 3.982857750452518*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"40d25592-43ad-4203-9f9d-4033df0fdfe0"]
+}, Open  ]],
+
+Cell["Then, simply load the package as:", "Text",
+ CellChangeTimes->{{3.953146622810454*^9, 3.953146638804977*^9}, 
+   3.966990387497758*^9, 
+   3.966991202715662*^9},ExpressionUUID->"f15d803f-b458-4439-befe-\
+ec007b866235"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<CIFAR`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.953146565858127*^9, 3.95314656787315*^9}, {
+  3.966991119879147*^9, 3.9669911363323917`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"e5d5822a-d0e4-4e08-9047-5f7d3da2dedb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"(****** CIFAR \"\>", "\[InvisibleSpace]", "\<\"1.2\"\>", 
+   "\[InvisibleSpace]", "\<\" ******)\"\>"}],
+  SequenceForm["(****** CIFAR ", "1.2", " ******)"],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.966991204796773*^9, 3.966991254302311*^9, 
+  3.966991310539173*^9, 3.966993007707313*^9, 3.966993124307864*^9, 
+  3.966993392257165*^9, 3.9669934486681957`*^9, 3.9669938463025093`*^9, 
+  3.982857753770842*^9},
+ CellLabel->
+  "During evaluation of \
+In[2]:=",ExpressionUUID->"2751a0df-2378-4389-9a49-2992d980f076"],
+
+Cell[BoxData["\<\"    Author: Adi Suresh\"\>"], "Print",
+ CellChangeTimes->{3.966991204796773*^9, 3.966991254302311*^9, 
+  3.966991310539173*^9, 3.966993007707313*^9, 3.966993124307864*^9, 
+  3.966993392257165*^9, 3.9669934486681957`*^9, 3.9669938463025093`*^9, 
+  3.9828577538418417`*^9},
+ CellLabel->
+  "During evaluation of \
+In[2]:=",ExpressionUUID->"0a564297-6418-4207-a452-6301405c0456"],
+
+Cell[BoxData["\<\"    Email: adisur@stanford.edu\"\>"], "Print",
+ CellChangeTimes->{3.966991204796773*^9, 3.966991254302311*^9, 
+  3.966991310539173*^9, 3.966993007707313*^9, 3.966993124307864*^9, 
+  3.966993392257165*^9, 3.9669934486681957`*^9, 3.9669938463025093`*^9, 
+  3.982857753906563*^9},
+ CellLabel->
+  "During evaluation of \
+In[2]:=",ExpressionUUID->"bd9fd336-b160-470c-8afa-37b89b9e72e7"],
+
+Cell[BoxData["\<\"    Installed at: \
+/Users/adisuresh/Library/CloudStorage/GoogleDrive-adisur@stanford.edu/My \
+Drive/Projects/RVVxV/anc/CIFAR copy/\"\>"], "Print",
+ CellChangeTimes->{3.966991204796773*^9, 3.966991254302311*^9, 
+  3.966991310539173*^9, 3.966993007707313*^9, 3.966993124307864*^9, 
+  3.966993392257165*^9, 3.9669934486681957`*^9, 3.9669938463025093`*^9, 
+  3.98285775396737*^9},
+ CellLabel->
+  "During evaluation of \
+In[2]:=",ExpressionUUID->"0bb863ef-b0b9-481b-b76b-9b3920fb5dca"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+To avoid the initial step every time one wishes to load the package, refer to \
+the alternative setup in the README.md file.\
+\>", "Text",
+ CellChangeTimes->{{3.953146641740715*^9, 
+  3.953146674786079*^9}},ExpressionUUID->"c18c0cd6-0411-47e5-932f-\
+15a06412c7c7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Documentation", "Subsection",
+ CellChangeTimes->{{3.953144854211102*^9, 3.953144862744781*^9}, {
+  3.9531449288362303`*^9, 
+  3.953144930664027*^9}},ExpressionUUID->"1c3c57b3-871f-42c6-b4c5-\
+a79b30157352"],
+
+Cell[TextData[{
+ StyleBox["CIFAR",
+  FontSlant->"Italic"],
+ " provides a number of public functions and symbols that are intended to be \
+used by the user. In order to get an overview of these functions and their \
+options, the following command can be used:"
+}], "Text",
+ CellChangeTimes->{{3.953146714595694*^9, 3.953146728705777*^9}, {
+  3.953146785570978*^9, 
+  3.953146818182661*^9}},ExpressionUUID->"3c79e78c-b491-4b73-8146-\
+1e1e5ad8560b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "CIFAR`*"}]], "Input",
+ CellChangeTimes->{{3.9531449368726263`*^9, 3.9531449378958807`*^9}, {
+  3.966990167444195*^9, 3.966990192527882*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"b440b548-1d13-4817-8b5a-a0e6e0940efa"],
+
+Cell[BoxData[
+ StyleBox[
+  FrameBox[GridBox[{
+     {
+      DynamicModuleBox[{Typeset`open$$ = True}, 
+       PaneSelectorBox[{False->
+        ButtonBox[
+         RowBox[{
+          
+          DynamicBox[FEPrivate`FrontEndResource[
+           "FEBitmaps", "RightPointerOpener"]], " ", 
+          StyleBox["CIFAR`", "InformationGridGroupHeader"]}],
+         Appearance->None,
+         BaseStyle->"InformationGridLink",
+         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
+         Evaluator->Automatic,
+         Method->"Preemptive"], True->
+        PaneBox[GridBox[{
+           {
+            ButtonBox[
+             RowBox[{
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{15., {4., 11.}}], " ", 
+              StyleBox["CIFAR`", "InformationGridGroupHeader"]}],
+             Appearance->None,
+             BaseStyle->"InformationGridLink",
+             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
+             Evaluator->Automatic,
+             Method->"Preemptive"]},
+           {
+            PaneBox[GridBox[{
+               {
+                ButtonBox[
+                 StyleBox["AdjointReduce", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "AdjointReduce", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["CA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "CA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["DF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "DF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["Tabulate", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "Tabulate", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C2AA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C2AA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["CF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "CF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ExportCIFARReduceCache", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ExportCIFARReduceCache", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["TF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "TF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C2AF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C2AF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["CheckContractions", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "CheckContractions", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ExportSUncReduceCache", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ExportSUncReduceCache", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ToFFLoopForm", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ToFFLoopForm", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C2FF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C2FF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["CIFARReduce", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "CIFARReduce", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ff", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ff", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ToTTProductForm", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ToTTProductForm", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C3AA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C3AA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ContractFF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ContractFF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["FF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "FF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["TraceFF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "TraceFF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C3AF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C3AF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ContractffTT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ContractffTT", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["LoadCIFARReduceCache", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "LoadCIFARReduceCache", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["TraceTT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "TraceTT", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C3FF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C3FF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ContractTT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "ContractTT", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["LoadSUncReduceCache", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "LoadSUncReduceCache", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["TT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "TT", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C4AA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C4AA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["dA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "dA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["nc", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "nc", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["UseCache", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "UseCache", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C4AF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C4AF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["DA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "DA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["StandardizeIndices", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "StandardizeIndices", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["UseGraphStandardization", "InformationGridButton"],
+                 
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "UseGraphStandardization", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C4FF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C4FF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["deltaA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "deltaA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["StrA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "StrA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["$CIFARPath", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "$CIFARPath", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C5AA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C5AA", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["deltaF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "deltaF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["StrF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "StrF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["$CIFARVersion", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "$CIFARVersion", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["C5AF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "C5AF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["dF", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "dF", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["SUncReduce", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-5c678ec8-742d-4aff-b1dd-7b5fdb94e536", {
+                   "SUncReduce", "CIFAR`"}, False},
+                 ButtonNote->"CIFAR`",
+                 Evaluator->Automatic], ""}
+              },
+              DefaultBaseStyle->"Text",
+              
+              GridBoxAlignment->{
+               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+              GridBoxItemSize->{"Columns" -> {{
+                   Scaled[0.2375]}}}],
+             ImageMargins->{{10, 0}, {0, 2}}]}
+          },
+          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
+        ImageSize->Automatic]]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.8]}, 
+        Offset[0.2]}}],
+   BaseStyle->"InformationTitleFrame"], "InformationGridPlain"]], "Output",
+ CellChangeTimes->{
+  3.953144938468411*^9, 3.953159806470837*^9, 3.953314018492618*^9, 
+   3.95338124185242*^9, 3.954527209071885*^9, 3.9617787515421143`*^9, 
+   3.966988444102631*^9, {3.966989965689877*^9, 3.966989971436692*^9}, {
+   3.9669901689618483`*^9, 3.966990193154422*^9}, 3.966990391872883*^9, 
+   3.966990461326248*^9, 3.966990532659069*^9, 3.966990714714291*^9, 
+   3.966991325282846*^9, 3.966993015596084*^9, 3.966993124851595*^9, 
+   3.9669933934069977`*^9, 3.966993449713743*^9, 3.9669938471023903`*^9, 
+   3.98285775765396*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"7099c2b2-ba04-47ec-9d42-ebfc2c0b5636"]
+}, Open  ]],
+
+Cell[TextData[{
+ "For each of the functions and options listed above, there exists a usage \
+message, which provides a short description of the arguments and the output \
+of the respective function. The usage message can be called with ",
+ StyleBox["?FunctionName", "Input"],
+ ", e.g."
+}], "Text",
+ CellChangeTimes->{3.953146762530443*^9, 
+  3.953393105352317*^9},ExpressionUUID->"788b986f-4c44-4383-8435-\
+7138b12aa5c8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "TT"}]], "Input",
+ CellChangeTimes->{{3.9531468432681303`*^9, 3.953146843618889*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"017194f1-0cbb-464c-87d6-d94914927702"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"TT\\\", \\\"[\\\", StyleBox[\\\
+\"{a1, ..., an}\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \\\"TI\\\"], \
+\\\",\\\", StyleBox[\\\"j\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+product of fundamental generators \
+\\!\\(\\*RowBox[{RowBox[{SubscriptBox[SuperscriptBox[\\\"T\\\", \
+RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"...\\\", \
+StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]],RowBox[{\\\"i\\\",\\\"j\\\"}]]}\
+],\\\"\[Congruent]\\\", RowBox[{SubscriptBox[SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"1\\\"]], RowBox[{\\\"i\\\", StyleBox[SubscriptBox[\
+\\\"i\\\",\\\"1\\\"]]}]]}],RowBox[{SubscriptBox[SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"2\\\"]], \
+RowBox[{StyleBox[SubscriptBox[\\\"i\\\",\\\"1\\\"]], StyleBox[SubscriptBox[\\\
+\"i\\\",\\\"2\\\"]]}]]}],\\\"...\\\",RowBox[{SubscriptBox[SuperscriptBox[\\\"\
+t\\\", SubscriptBox[\\\"a\\\",\\\"n\\\"]], \
+RowBox[{StyleBox[SubscriptBox[\\\"i\\\",\\\"n-1\\\"]], \\\"j\\\"}]]}]}]\\). \
+To represent a single generator \\!\\(\\*RowBox[{SubscriptBox[SuperscriptBox[\
+\\\"t\\\", \\\"a\\\"], RowBox[{\\\"i\\\", \\\"j\\\"}]]}]\\), input a list \
+with one element \\!\\(\\*StyleBox[\\\"{a}\\\", \\\"TI\\\"]\\) for the first \
+argument. To express traces of these products \
+\\!\\(\\*RowBox[{SuperscriptBox[\\\"T\\\", \
+RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"...\\\", \
+StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]],\\\"\[Congruent]\\\",\\\"Tr[\\\
+\",SuperscriptBox[\\\"t\\\", SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"... \
+\\\", SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"n\\\"]],\\\"]\\\"}]\\), input identical arguments \
+for the latter entry indices: \\!\\(\\*RowBox[{\\\"TT\\\", \\\"[\\\", \
+StyleBox[\\\"{a1, ..., an}\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \\\"TI\\\"], \\\"]\\\"}]\\). The \
+adjoint indices \\!\\(\\*StyleBox[\\\"a1, ..., an\\\", \\\"TI\\\"]\\) and the \
+entry indices \\!\\(\\*StyleBox[\\\"i\\\", \\\"TI\\\"]\\) and \
+\\!\\(\\*StyleBox[\\\"j\\\", \\\"TI\\\"]\\) should be symbolic \
+constants.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    RowBox[{
+                    RowBox[{"{", "}"}], ",", "CIFAR`Private`i_", ",", 
+                    "CIFAR`Private`j_"}], "]"}], ":=", 
+                    RowBox[{"deltaF", "[", 
+                    RowBox[{"CIFAR`Private`i", ",", "CIFAR`Private`j"}], 
+                    "]"}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    RowBox[{
+                    RowBox[{"{", "CIFAR`Private`a_", "}"}], ",", 
+                    "CIFAR`Private`i_", ",", "CIFAR`Private`i_"}], "]"}], 
+                    ":=", "0"}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"CIFAR`TT\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"TT\\\", \\\"[\\\", StyleBox[\\\
+\"{a1, ..., an}\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \\\"TI\\\"], \
+\\\",\\\", StyleBox[\\\"j\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+product of fundamental generators \
+\\!\\(\\*RowBox[{RowBox[{SubscriptBox[SuperscriptBox[\\\"T\\\", \
+RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"...\\\", \
+StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]],RowBox[{\\\"i\\\",\\\"j\\\"}]]}\
+],\\\"\[Congruent]\\\", RowBox[{SubscriptBox[SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"1\\\"]], RowBox[{\\\"i\\\", StyleBox[SubscriptBox[\
+\\\"i\\\",\\\"1\\\"]]}]]}],RowBox[{SubscriptBox[SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"2\\\"]], \
+RowBox[{StyleBox[SubscriptBox[\\\"i\\\",\\\"1\\\"]], StyleBox[SubscriptBox[\\\
+\"i\\\",\\\"2\\\"]]}]]}],\\\"...\\\",RowBox[{SubscriptBox[SuperscriptBox[\\\"\
+t\\\", SubscriptBox[\\\"a\\\",\\\"n\\\"]], \
+RowBox[{StyleBox[SubscriptBox[\\\"i\\\",\\\"n-1\\\"]], \\\"j\\\"}]]}]}]\\). \
+To represent a single generator \\!\\(\\*RowBox[{SubscriptBox[SuperscriptBox[\
+\\\"t\\\", \\\"a\\\"], RowBox[{\\\"i\\\", \\\"j\\\"}]]}]\\), input a list \
+with one element \\!\\(\\*StyleBox[\\\"{a}\\\", \\\"TI\\\"]\\) for the first \
+argument. To express traces of these products \
+\\!\\(\\*RowBox[{SuperscriptBox[\\\"T\\\", \
+RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"...\\\", \
+StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]],\\\"\[Congruent]\\\",\\\"Tr[\\\
+\",SuperscriptBox[\\\"t\\\", SubscriptBox[\\\"a\\\",\\\"1\\\"]], \\\"... \
+\\\", SuperscriptBox[\\\"t\\\", \
+SubscriptBox[\\\"a\\\",\\\"n\\\"]],\\\"]\\\"}]\\), input identical arguments \
+for the latter entry indices: \\!\\(\\*RowBox[{\\\"TT\\\", \\\"[\\\", \
+StyleBox[\\\"{a1, ..., an}\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \\\"TI\\\"], \\\"]\\\"}]\\). The \
+adjoint indices \\!\\(\\*StyleBox[\\\"a1, ..., an\\\", \\\"TI\\\"]\\) and the \
+entry indices \\!\\(\\*StyleBox[\\\"i\\\", \\\"TI\\\"]\\) and \
+\\!\\(\\*StyleBox[\\\"j\\\", \\\"TI\\\"]\\) should be symbolic \
+constants.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{15., {2., 13.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{15., {2., 13.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"TT\", \"[\", StyleBox[\"{a1, ..., an}\", \"TI\"], \",\", \
+StyleBox[\"i\", \"TI\"], \",\", StyleBox[\"j\", \"TI\"], \"]\"}]\) represents \
+a product of fundamental generators \
+\!\(\*RowBox[{RowBox[{SubscriptBox[SuperscriptBox[\"T\", \
+RowBox[{StyleBox[SubscriptBox[\"a\",\"1\"]], \"...\", \
+StyleBox[SubscriptBox[\"a\",\"n\"]]}]],RowBox[{\"i\",\"j\"}]]}],\"\[Congruent]\
+\", RowBox[{SubscriptBox[SuperscriptBox[\"t\", SubscriptBox[\"a\",\"1\"]], \
+RowBox[{\"i\", \
+StyleBox[SubscriptBox[\"i\",\"1\"]]}]]}],RowBox[{SubscriptBox[SuperscriptBox[\
+\"t\", SubscriptBox[\"a\",\"2\"]], \
+RowBox[{StyleBox[SubscriptBox[\"i\",\"1\"]], \
+StyleBox[SubscriptBox[\"i\",\"2\"]]}]]}],\"...\",RowBox[{SubscriptBox[\
+SuperscriptBox[\"t\", SubscriptBox[\"a\",\"n\"]], \
+RowBox[{StyleBox[SubscriptBox[\"i\",\"n-1\"]], \"j\"}]]}]}]\). To represent a \
+single generator \!\(\*RowBox[{SubscriptBox[SuperscriptBox[\"t\", \"a\"], \
+RowBox[{\"i\", \"j\"}]]}]\), input a list with one element \
+\!\(\*StyleBox[\"{a}\", \"TI\"]\) for the first argument. To express traces \
+of these products \!\(\*RowBox[{SuperscriptBox[\"T\", \
+RowBox[{StyleBox[SubscriptBox[\"a\",\"1\"]], \"...\", \
+StyleBox[SubscriptBox[\"a\",\"n\"]]}]],\"\[Congruent]\",\"Tr[\",\
+SuperscriptBox[\"t\", SubscriptBox[\"a\",\"1\"]], \"... \", \
+SuperscriptBox[\"t\", SubscriptBox[\"a\",\"n\"]],\"]\"}]\), input identical \
+arguments for the latter entry indices: \!\(\*RowBox[{\"TT\", \"[\", \
+StyleBox[\"{a1, ..., an}\", \"TI\"], \",\", StyleBox[\"i\", \"TI\"], \",\", \
+StyleBox[\"i\", \"TI\"], \"]\"}]\). The adjoint indices \!\(\*StyleBox[\"a1, \
+..., an\", \"TI\"]\) and the entry indices \!\(\*StyleBox[\"i\", \"TI\"]\) \
+and \!\(\*StyleBox[\"j\", \"TI\"]\) should be symbolic constants.", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[DownValues, CIFAR`TT, {CIFAR`TT[{}, 
+         Pattern[CIFAR`Private`i, 
+          Blank[]], 
+         Pattern[CIFAR`Private`j, 
+          Blank[]]] :> CIFAR`deltaF[CIFAR`Private`i, CIFAR`Private`j], 
+       CIFAR`TT[{
+          Pattern[CIFAR`Private`a, 
+           Blank[]]}, 
+         Pattern[CIFAR`Private`i, 
+          Blank[]], 
+         Pattern[CIFAR`Private`i, 
+          Blank[]]] :> 0}], "SubValues" -> None, "DefaultValues" -> None, 
+    "NValues" -> None, "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {}, "FullName" -> "CIFAR`TT"|>, False]]], "Output",
+ CellChangeTimes->{3.953146851764216*^9, 3.9531598065241613`*^9, 
+  3.953314018559956*^9, 3.9533812419130077`*^9, 3.9617787530614023`*^9, 
+  3.9669930173544693`*^9, 3.966993124925289*^9, 3.966993393459607*^9, 
+  3.966993449794788*^9, 3.966993847177719*^9, 3.982857761672368*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"cf3eb26d-665b-4046-87d4-1bced72bf8a1"]
+}, Open  ]],
+
+Cell["or", "Text",
+ CellChangeTimes->{{3.953146850004293*^9, 
+  3.9531468501118803`*^9}},ExpressionUUID->"36412f8a-6093-4711-b130-\
+d8b94051698d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "TraceTT"}]], "Input",
+ CellChangeTimes->{
+  3.953146767037381*^9, {3.953146832253559*^9, 3.953146833522469*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"e123d382-9db3-47bb-a294-bbaf021f9056"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"TraceTT\\\", \\\"[\\\", \
+StyleBox[\\\"TT[{a1,...,an},i,i]\\\", \\\"TI\\\"], \\\"]\\\"}]\\) reduces the \
+trace of the product of fundamental generators \
+\\!\\(\\*SuperscriptBox[\\\"T\\\", RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\
+\"1\\\"]], \\\"...\\\", StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]]\\) in \
+terms of structure constants and symmetric color tensors of lower \
+degree.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`a_List", ",", "CIFAR`Private`i_", 
+                    ",", "CIFAR`Private`j_"}], "]"}], ",", 
+                    RowBox[{"CIFAR`Private`opts", ":", 
+                    RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], "/;", 
+                    RowBox[{"!", 
+                    
+                    RowBox[{
+                    "DuplicateFreeQ", "[", "CIFAR`Private`a", "]"}]}]}], ":=", 
+                    RowBox[{
+                    RowBox[{"ContractTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`a", ",", "CIFAR`Private`i", ",", 
+                    "CIFAR`Private`j"}], "]"}], "]"}], "/.", 
+                    "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"TT", "[", "CIFAR`Private`aa___", "]"}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{
+                    RowBox[{"TT", "[", "CIFAR`Private`aa", "]"}], ",", 
+                    "CIFAR`Private`opts"}], "]"}]}]}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`a_", ",", "CIFAR`Private`i_", ",", 
+                    "CIFAR`Private`j_"}], "]"}], ",", 
+                    RowBox[{"OptionsPattern", "[", "]"}]}], "]"}], ":=", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`i", "=!=", "CIFAR`Private`j"}], 
+                    ",", 
+                    RowBox[{
+                    
+                    RowBox[{"Print", "[", 
+                    "\"Fundamental indicies not closed.\"", "]"}], ";", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{"TT", "[", 
+                    RowBox[{"CIFAR`Private`a", ",", "CIFAR`Private`i", ",", 
+                    "CIFAR`Private`j"}], "]"}], "]"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"Which", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Length", "[", "CIFAR`Private`a", "]"}], 
+                    "\[Equal]", "2"}], ",", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{"TF", " ", 
+                    RowBox[{"deltaA", "@@", "CIFAR`Private`a"}]}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Length", "[", "CIFAR`Private`a", "]"}], 
+                    "\[Equal]", "3"}], "&&", 
+                    RowBox[{"OptionValue", "[", "Tabulate", "]"}]}], ",", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{
+                    RowBox[{"dF", "@@", "CIFAR`Private`a"}], "+", 
+                    RowBox[{
+                    FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "TF", 
+                    " ", 
+                    RowBox[{"ff", "@@", "CIFAR`Private`a"}]}]}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Length", "[", "CIFAR`Private`a", "]"}], 
+                    "\[Equal]", "4"}], "&&", 
+                    RowBox[{"OptionValue", "[", "Tabulate", "]"}]}], ",", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{
+                    RowBox[{"dF", "@@", "CIFAR`Private`a"}], "+", 
+                    RowBox[{
+                    FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"dF", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "4", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", "]"}]}], "]"}], 
+                    " ", 
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}]}], "-", 
+                    RowBox[{
+                    RowBox[{"dF", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}], " ", 
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "4", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}]}]}], ")"}]}], "+", 
+                    RowBox[{
+                    FractionBox["1", "6"], " ", "TF", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "4", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}], " ", 
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}]}], "-", 
+                    RowBox[{
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "2", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}], " ", 
+                    RowBox[{"ff", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "3", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "4", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetAdjIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "]"}]}]}], ")"}]}]}], "]"}], 
+                    ",", "True", ",", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    RowBox[{"dF", "@@", "CIFAR`Private`a"}]}], ",", 
+                    RowBox[{"CIFAR`Private`perms", "=", 
+                    RowBox[{"Permutations", "[", 
+                    RowBox[{"Delete", "[", 
+                    RowBox[{"CIFAR`Private`a", ",", "1"}], "]"}], "]"}]}], 
+                    ",", "CIFAR`Private`currentPos", ",", 
+                    "CIFAR`Private`distinctPerms", ",", 
+                    "CIFAR`Private`permsFactors"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`perms", "=", 
+                    RowBox[{"Insert", "[", 
+                    RowBox[{"CIFAR`Private`perms", ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", "1", 
+                    "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"CIFAR`Private`iter", ",", "1"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"CIFAR`Private`iter", ",", 
+                    RowBox[{"Length", "[", "CIFAR`Private`perms", "]"}]}], 
+                    "}"}]}], "]"}]}], "]"}]}], ";", 
+                    RowBox[{"CIFAR`Private`permsFactors", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"Length", "[", "CIFAR`Private`perms", "]"}]}], 
+                    "]"}]}], ";", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`currentPos", "=", 
+                    RowBox[{
+                    RowBox[{"Position", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`perms", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter2", "\[RightDoubleBracket]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter1", "\[RightDoubleBracket]"}]}], "]"}],
+                     "\[LeftDoubleBracket]", 
+                    RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{"CIFAR`Private`result", "-=", 
+                    FractionBox[
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`permsFactors", 
+                    "\[LeftDoubleBracket]", "CIFAR`Private`iter2", 
+                    "\[RightDoubleBracket]"}], " ", 
+                    RowBox[{"CIFAR`Private`CommuteBackTTComTerms", "[", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`GetTTFromInds", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"CIFAR`Private`perms", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter2", "\[RightDoubleBracket]"}], "}"}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`GetFundIndex", "[", "]"}], ",", 
+                    RowBox[{"CIFAR`Private`GetFundIndex", "[", 
+                    RowBox[{"-", "1"}], "]"}]}], "}"}], "}"}]}], "]"}], ",", 
+                    "CIFAR`Private`currentPos", ",", "CIFAR`Private`iter1"}], 
+                    "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Length", "[", "CIFAR`Private`a", "]"}], "-", 
+                    "1"}], ")"}], "!"}]]}], ";", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`perms", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter2", "\[RightDoubleBracket]"}], "=", 
+                    RowBox[{"Insert", "[", 
+                    RowBox[{
+                    RowBox[{"Delete", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`perms", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter2", "\[RightDoubleBracket]"}], ",", 
+                    "CIFAR`Private`currentPos"}], "]"}], ",", 
+                    
+                    RowBox[{"CIFAR`Private`a", "\[LeftDoubleBracket]", 
+                    "CIFAR`Private`iter1", "\[RightDoubleBracket]"}], ",", 
+                    "CIFAR`Private`iter1"}], "]"}]}]}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"CIFAR`Private`iter2", ",", 
+                    RowBox[{"Length", "[", "CIFAR`Private`perms", "]"}]}], 
+                    "}"}]}], "]"}], ";", 
+                    RowBox[{"CIFAR`Private`distinctPerms", "=", 
+                    
+                    RowBox[{"CIFAR`Private`PositionDistinct", "[", 
+                    "CIFAR`Private`perms", "]"}]}], ";", 
+                    RowBox[{"CIFAR`Private`permsFactors", "=", 
+                    RowBox[{"Total", "/@", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    
+                    RowBox[{"CIFAR`Private`permsFactors", 
+                    "\[LeftDoubleBracket]", 
+                    
+                    RowBox[{"CIFAR`Private`distinctPerms", 
+                    "\[LeftDoubleBracket]", "CIFAR`Private`iter3", 
+                    "\[RightDoubleBracket]"}], "\[RightDoubleBracket]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"CIFAR`Private`iter3", ",", 
+                    
+                    RowBox[{"Length", "[", "CIFAR`Private`distinctPerms", 
+                    "]"}]}], "}"}]}], "]"}]}]}], ";", 
+                    RowBox[{"CIFAR`Private`perms", "=", 
+                    RowBox[{"CIFAR`Private`perms", "\[LeftDoubleBracket]", 
+                    
+                    RowBox[{"CIFAR`Private`distinctPerms", 
+                    "\[LeftDoubleBracket]", 
+                    RowBox[{
+                    RowBox[{"1", ";;", "All"}], ",", "1"}], 
+                    "\[RightDoubleBracket]"}], "\[RightDoubleBracket]"}]}]}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"CIFAR`Private`iter1", ",", "2", ",", 
+                    RowBox[{
+                    RowBox[{"Length", "[", "CIFAR`Private`a", "]"}], "-", 
+                    "1"}]}], "}"}]}], "]"}], ";", 
+                    RowBox[{"Return", "[", 
+                    RowBox[{
+                    RowBox[{"Expand", "[", "CIFAR`Private`result", "]"}], 
+                    "/.", "\[VeryThinSpace]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa_", ",", "CIFAR`Private`ii_", 
+                    ",", "CIFAR`Private`ii_"}], "]"}], "\[RuleDelayed]", 
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`ii"}], "]"}], "]"}]}], "}"}]}], "]"}]}]}], 
+                    "]"}], ";"}]}], "]"}], ";"}]}], "]"}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"TraceTT", "[", "CIFAR`Private`expr_", "]"}], 
+                    ":=", "CIFAR`Private`expr"}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   RowBox[{"Tabulate", "\[Rule]", "True"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"CIFAR`TraceTT\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"TraceTT\\\", \\\"[\\\", \
+StyleBox[\\\"TT[{a1,...,an},i,i]\\\", \\\"TI\\\"], \\\"]\\\"}]\\) reduces the \
+trace of the product of fundamental generators \
+\\!\\(\\*SuperscriptBox[\\\"T\\\", RowBox[{StyleBox[SubscriptBox[\\\"a\\\",\\\
+\"1\\\"]], \\\"...\\\", StyleBox[SubscriptBox[\\\"a\\\",\\\"n\\\"]]}]]\\) in \
+terms of structure constants and symmetric color tensors of lower \
+degree.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{15., {2., 13.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{15., {2., 13.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"TraceTT\", \"[\", StyleBox[\"TT[{a1,...,an},i,i]\", \"TI\
+\"], \"]\"}]\) reduces the trace of the product of fundamental generators \
+\!\(\*SuperscriptBox[\"T\", RowBox[{StyleBox[SubscriptBox[\"a\",\"1\"]], \
+\"...\", StyleBox[SubscriptBox[\"a\",\"n\"]]}]]\) in terms of structure \
+constants and symmetric color tensors of lower degree.", "Documentation" -> 
+    None, "OwnValues" -> None, "UpValues" -> None, "DownValues" -> 
+    Information`InformationValueForm[DownValues, CIFAR`TraceTT, {Condition[
+         CIFAR`TraceTT[
+          CIFAR`TT[
+           Pattern[CIFAR`Private`a, 
+            Blank[List]], 
+           Pattern[CIFAR`Private`i, 
+            Blank[]], 
+           Pattern[CIFAR`Private`j, 
+            Blank[]]], 
+          Pattern[CIFAR`Private`opts, 
+           OptionsPattern[]]], 
+         Not[
+          DuplicateFreeQ[CIFAR`Private`a]]] :> ReplaceAll[
+         CIFAR`ContractTT[
+          CIFAR`TT[CIFAR`Private`a, CIFAR`Private`i, CIFAR`Private`j]], 
+         CIFAR`TT[
+           Pattern[CIFAR`Private`aa, 
+            BlankNullSequence[]]] :> CIFAR`TraceTT[
+           CIFAR`TT[CIFAR`Private`aa], CIFAR`Private`opts]], CIFAR`TraceTT[
+         CIFAR`TT[
+          Pattern[CIFAR`Private`a, 
+           Blank[]], 
+          Pattern[CIFAR`Private`i, 
+           Blank[]], 
+          Pattern[CIFAR`Private`j, 
+           Blank[]]], 
+         OptionsPattern[]] :> 
+       If[CIFAR`Private`i =!= CIFAR`Private`j, 
+         Print["Fundamental indicies not closed."]; Return[
+           CIFAR`TT[CIFAR`Private`a, CIFAR`Private`i, CIFAR`Private`j]], 
+         Which[Length[CIFAR`Private`a] == 2, 
+           Return[CIFAR`TF Apply[CIFAR`deltaA, CIFAR`Private`a]], 
+           And[Length[CIFAR`Private`a] == 3, 
+            OptionValue[CIFAR`Tabulate]], 
+           Return[
+           Apply[CIFAR`dF, CIFAR`Private`a] + (I/2) CIFAR`TF 
+             Apply[CIFAR`ff, CIFAR`Private`a]], 
+           And[Length[CIFAR`Private`a] == 4, 
+            OptionValue[CIFAR`Tabulate]], 
+           Return[Apply[CIFAR`dF, CIFAR`Private`a] + (I/2) (CIFAR`dF[
+                 Part[CIFAR`Private`a, 1], 
+                 Part[CIFAR`Private`a, 4], 
+                 CIFAR`Private`GetAdjIndex[]] CIFAR`ff[
+                 Part[CIFAR`Private`a, 2], 
+                 Part[CIFAR`Private`a, 3], 
+                 CIFAR`Private`GetAdjIndex[-1]] - CIFAR`dF[
+                Part[CIFAR`Private`a, 2], 
+                Part[CIFAR`Private`a, 3], 
+                CIFAR`Private`GetAdjIndex[-1]] CIFAR`ff[
+                Part[CIFAR`Private`a, 1], 
+                Part[CIFAR`Private`a, 4], 
+                CIFAR`Private`GetAdjIndex[-1]]) + (CIFAR`TF/6) (CIFAR`ff[
+                 Part[CIFAR`Private`a, 1], 
+                 Part[CIFAR`Private`a, 4], 
+                 CIFAR`Private`GetAdjIndex[-1]] CIFAR`ff[
+                 Part[CIFAR`Private`a, 2], 
+                 Part[CIFAR`Private`a, 3], 
+                 CIFAR`Private`GetAdjIndex[-1]] - CIFAR`ff[
+                Part[CIFAR`Private`a, 1], 
+                Part[CIFAR`Private`a, 2], 
+                CIFAR`Private`GetAdjIndex[-1]] CIFAR`ff[
+                Part[CIFAR`Private`a, 3], 
+                Part[CIFAR`Private`a, 4], 
+                CIFAR`Private`GetAdjIndex[-1]])], True, 
+           Module[{CIFAR`Private`result = Apply[CIFAR`dF, CIFAR`Private`a], 
+              CIFAR`Private`perms = Permutations[
+                Delete[CIFAR`Private`a, 1]], CIFAR`Private`currentPos, 
+              CIFAR`Private`distinctPerms, CIFAR`Private`permsFactors}, 
+             CIFAR`Private`perms = Insert[CIFAR`Private`perms, 
+                Part[CIFAR`Private`a, 1], 
+                Table[{CIFAR`Private`iter, 1}, {CIFAR`Private`iter, 
+                  Length[CIFAR`Private`perms]}]]; 
+             CIFAR`Private`permsFactors = Table[1, 
+                Length[CIFAR`Private`perms]]; 
+             Do[Do[CIFAR`Private`currentPos = Part[
+                    Position[
+                    Part[CIFAR`Private`perms, CIFAR`Private`iter2], 
+                    Part[CIFAR`Private`a, CIFAR`Private`iter1]], 1, 1]; 
+                 SubtractFrom[
+                  CIFAR`Private`result, (
+                    Part[CIFAR`Private`permsFactors, CIFAR`Private`iter2]/
+                    Factorial[Length[CIFAR`Private`a] - 1]) 
+                   CIFAR`Private`CommuteBackTTComTerms[
+                    CIFAR`Private`GetTTFromInds[{
+                    Part[CIFAR`Private`perms, CIFAR`Private`iter2]}, {{
+                    CIFAR`Private`GetFundIndex[], 
+                    CIFAR`Private`GetFundIndex[-1]}}], 
+                    CIFAR`Private`currentPos, CIFAR`Private`iter1]]; 
+                 Part[CIFAR`Private`perms, CIFAR`Private`iter2] = Insert[
+                    Delete[
+                    Part[CIFAR`Private`perms, CIFAR`Private`iter2], 
+                    CIFAR`Private`currentPos], 
+                    Part[CIFAR`Private`a, CIFAR`Private`iter1], 
+                    CIFAR`Private`iter1], {CIFAR`Private`iter2, 
+                  Length[CIFAR`Private`perms]}]; 
+               CIFAR`Private`distinctPerms = 
+                CIFAR`Private`PositionDistinct[CIFAR`Private`perms]; 
+               CIFAR`Private`permsFactors = Map[Total, 
+                  Table[
+                   Part[CIFAR`Private`permsFactors, 
+                    Part[CIFAR`Private`distinctPerms, CIFAR`Private`iter3]], {
+                   CIFAR`Private`iter3, 
+                    Length[CIFAR`Private`distinctPerms]}]]; 
+               CIFAR`Private`perms = Part[CIFAR`Private`perms, 
+                  Part[CIFAR`Private`distinctPerms, 
+                   Span[1, All], 1]], {
+               CIFAR`Private`iter1, 2, Length[CIFAR`Private`a] - 1}]; Return[
+               ReplaceAll[
+                Expand[CIFAR`Private`result], {CIFAR`TT[
+                   Pattern[CIFAR`Private`aa, 
+                    Blank[]], 
+                   Pattern[CIFAR`Private`ii, 
+                    Blank[]], 
+                   Pattern[CIFAR`Private`ii, 
+                    Blank[]]] :> CIFAR`TraceTT[
+                   CIFAR`TT[
+                   CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`ii]]}]]]; 
+           Null]; Null], CIFAR`TraceTT[
+         Pattern[CIFAR`Private`expr, 
+          Blank[]]] :> CIFAR`Private`expr}], "SubValues" -> None, 
+    "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> {CIFAR`Tabulate -> True}, "Attributes" -> {}, "FullName" -> 
+    "CIFAR`TraceTT"|>, False]]], "Output",
+ CellChangeTimes->{3.953146833784635*^9, 3.953159806588668*^9, 
+  3.953314018626679*^9, 3.9533812419734907`*^9, 3.961778754710619*^9, 
+  3.9669930193328247`*^9, 3.966993124994759*^9, 3.966993393506283*^9, 
+  3.966993449864122*^9, 3.9669938473191*^9, 3.9828577640952272`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"3950696f-ebf7-425e-a7c1-5e3c135b3ad2"]
+}, Open  ]],
+
+Cell["The all-in-one reduction function is given by:", "Text",
+ CellChangeTimes->{{3.953150282101499*^9, 
+  3.953150294459044*^9}},ExpressionUUID->"6cb35255-9282-4bef-9749-\
+89819cd0b113"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "CIFARReduce"}]], "Input",
+ CellChangeTimes->{{3.953150296137723*^9, 3.953150297343945*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"4d8956f4-beea-4a1e-a434-fdba1a2afba5"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"CIFARReduce\\\", \\\"[\\\", \
+StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\"]\\\"}]\\) reduces fully contracted \
+expressions in the color group in \\!\\(\\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\
+\\); the result is in terms of Casimir invariants (up to quartic) and \
+dimensions of the fundamental and adjoint represent. The default option \
+\\!\\(\\*StyleBox[\\\"CheckContractions->True\\\", \\\"TI\\\"]\\) ensures \
+that  \\!\\(\\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\\) has fully contracted \
+color indices, and should not be set to \\!\\(\\*StyleBox[\\\"False\\\", \
+\\\"TI\\\"]\\) if attempting to reduce an expression that is not fully \
+contracted, as reduction will proceed assuming all indices are contracted. \
+The default option \\!\\(\\*StyleBox[\\\"UseCache->True\\\", \\\"TI\\\"]\\) \
+enables a cache that stores previous results for efficient repeated \
+computations. The default option \\!\\(\\*StyleBox[\\\"Tabulate->True\\\", \\\
+\"TI\\\"]\\) enables the use of tabulated results of various contractions and \
+traces that speeds up the computaiton.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"CIFARReduce", "[", 
+                    RowBox[{"CIFAR`Private`expr_", ",", 
+                    RowBox[{"CIFAR`Private`opts", ":", 
+                    RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"CIFAR`Private`result", ",", 
+                    "CIFAR`Private`lookup", ",", 
+                    RowBox[{"CIFAR`Private`fullyContractedQ", "=", "True"}]}],
+                     "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "UseCache", "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`lookup", "=", 
+                    
+                    RowBox[{"CIFAR`Private`LookupCIFARReduceCache", "[", 
+                    "CIFAR`Private`expr", "]"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"!", 
+                    RowBox[{"MatchQ", "[", 
+                    RowBox[{
+                    RowBox[{"Head", "[", "CIFAR`Private`lookup", "]"}], ",", 
+                    "Missing"}], "]"}]}], ",", 
+                    RowBox[{"Return", "[", "CIFAR`Private`lookup", "]"}]}], 
+                    "]"}], ";"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "CheckContractions", "]"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"Check", "[", 
+                    RowBox[{
+                    RowBox[{"CIFAR`Private`fullyContractedQ", "=", 
+                    RowBox[{"CIFAR`Private`FullyContractedQ", "[", 
+                    RowBox[{"Expand", "[", "CIFAR`Private`expr", "]"}], 
+                    "]"}]}], ",", 
+                    RowBox[{"Return", "[", "CIFAR`Private`expr", "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    StyleBox[
+                    
+                    RowBox[{"CIFAR`Private`FullyContractedQ", "::", 
+                    "highcount"}], "MessageName"], ",", 
+                    StyleBox[
+                    
+                    RowBox[{"CIFAR`Private`FullyContractedQ", "::", 
+                    "nocolorobjects"}], "MessageName"]}], "}"}]}], "]"}], 
+                    ";"}]}], "]"}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    RowBox[{"Expand", "[", "CIFAR`Private`expr", "]"}]}], ";", 
+                    RowBox[{"Block", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"TT", ",", "ff", ",", "FF", ",", "deltaF", ",", 
+                    "deltaA", ",", "dA", ",", "dF"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/TT.m\""}], "]"}], ";", 
+                    
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/ff.m\""}], "]"}], ";", 
+                    
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/FFLoop.m\""}], "]"}], 
+                    ";", 
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/deltaF.m\""}], "]"}], 
+                    ";", 
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/deltaA.m\""}], "]"}], 
+                    ";", 
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/dA.m\""}], "]"}], ";", 
+                    
+                    RowBox[{"Get", "[", 
+                    RowBox[{"$CIFARPath", "<>", "\"lib/dF.m\""}], "]"}], ";", 
+                    
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"ToTTProductForm", "[", "CIFAR`Private`result", 
+                    "]"}]}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"CIFAR`Private`result", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{"{", 
+                    RowBox[{
+                    SuperscriptBox[
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa_", ",", "CIFAR`Private`ii_", 
+                    ",", "CIFAR`Private`jj_"}], "]"}], "2"], "\[RuleDelayed]", 
+                    RowBox[{
+                    RowBox[{"ContractTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`jj"}], "]"}], "]"}], " ", 
+                    RowBox[{"ContractTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`jj"}], "]"}], "]"}]}]}], "}"}]}]}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"CIFAR`Private`result", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa_", ",", "CIFAR`Private`ii_", 
+                    ",", "CIFAR`Private`jj_"}], "]"}], "\[RuleDelayed]", 
+                    RowBox[{"ContractTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`jj"}], "]"}], "]"}]}], "}"}]}]}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"ContractffTT", "[", "CIFAR`Private`result", 
+                    "]"}]}], ";", 
+                    RowBox[{"SetOptions", "[", 
+                    RowBox[{"TraceTT", ",", 
+                    RowBox[{"Tabulate", "\[Rule]", 
+                    RowBox[{"OptionValue", "[", "Tabulate", "]"}]}]}], "]"}], 
+                    ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"CIFAR`Private`result", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{"{", 
+                    RowBox[{
+                    SuperscriptBox[
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa_", ",", "CIFAR`Private`ii_", 
+                    ",", "CIFAR`Private`ii_"}], "]"}], "2"], "\[RuleDelayed]", 
+                    RowBox[{
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`ii"}], "]"}], "]"}], " ", 
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`ii"}], "]"}], "]"}]}]}], "}"}]}]}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    
+                    RowBox[{"CIFAR`Private`result", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa_", ",", "CIFAR`Private`ii_", 
+                    ",", "CIFAR`Private`ii_"}], "]"}], "\[RuleDelayed]", 
+                    RowBox[{"TraceTT", "[", 
+                    RowBox[{"TT", "[", 
+                    
+                    RowBox[{"CIFAR`Private`aa", ",", "CIFAR`Private`ii", ",", 
+                    "CIFAR`Private`ii"}], "]"}], "]"}]}], "}"}]}]}], ";", 
+                    RowBox[{"SetOptions", "[", 
+                    RowBox[{"TraceTT", ",", 
+                    RowBox[{"Tabulate", "\[Rule]", "True"}]}], "]"}], ";", 
+                    RowBox[{"CIFAR`Private`result", "=", 
+                    RowBox[{"AdjointReduce", "[", 
+                    
+                    RowBox[{"CIFAR`Private`result", ",", 
+                    "CIFAR`Private`fullyContractedQ", ",", 
+                    RowBox[{"Tabulate", "\[Rule]", 
+                    RowBox[{"OptionValue", "[", "Tabulate", "]"}]}]}], 
+                    "]"}]}], ";"}]}], "]"}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"OptionValue", "[", "UseCache", "]"}], ",", 
+                    RowBox[{"CIFAR`Private`UpdateCIFARReduceCache", "[", 
+                    
+                    RowBox[{"CIFAR`Private`expr", ",", 
+                    "CIFAR`Private`result"}], "]"}]}], "]"}], ";", 
+                    RowBox[{"Return", "[", "CIFAR`Private`result", "]"}], 
+                    ";"}]}], "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"CheckContractions", "\[Rule]", "True"}], ",", 
+                    RowBox[{"UseCache", "\[Rule]", "True"}], ",", 
+                    RowBox[{"Tabulate", "\[Rule]", "True"}]}], "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"CIFAR`CIFARReduce\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"CIFARReduce\\\", \\\"[\\\", \
+StyleBox[\\\"expr\\\", \\\"TI\\\"], \\\"]\\\"}]\\) reduces fully contracted \
+expressions in the color group in \\!\\(\\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\
+\\); the result is in terms of Casimir invariants (up to quartic) and \
+dimensions of the fundamental and adjoint represent. The default option \
+\\!\\(\\*StyleBox[\\\"CheckContractions->True\\\", \\\"TI\\\"]\\) ensures \
+that  \\!\\(\\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\\) has fully contracted \
+color indices, and should not be set to \\!\\(\\*StyleBox[\\\"False\\\", \
+\\\"TI\\\"]\\) if attempting to reduce an expression that is not fully \
+contracted, as reduction will proceed assuming all indices are contracted. \
+The default option \\!\\(\\*StyleBox[\\\"UseCache->True\\\", \\\"TI\\\"]\\) \
+enables a cache that stores previous results for efficient repeated \
+computations. The default option \\!\\(\\*StyleBox[\\\"Tabulate->True\\\", \\\
+\"TI\\\"]\\) enables the use of tabulated results of various contractions and \
+traces that speeds up the computaiton.\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{15., {2., 13.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{15., {2., 13.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"CIFARReduce\", \"[\", StyleBox[\"expr\", \"TI\"], \
+\"]\"}]\) reduces fully contracted expressions in the color group in \
+\!\(\*StyleBox[\"expr\", \"TI\"]\); the result is in terms of Casimir \
+invariants (up to quartic) and dimensions of the fundamental and adjoint \
+represent. The default option \!\(\*StyleBox[\"CheckContractions->True\", \
+\"TI\"]\) ensures that  \!\(\*StyleBox[\"expr\", \"TI\"]\) has fully \
+contracted color indices, and should not be set to \!\(\*StyleBox[\"False\", \
+\"TI\"]\) if attempting to reduce an expression that is not fully contracted, \
+as reduction will proceed assuming all indices are contracted. The default \
+option \!\(\*StyleBox[\"UseCache->True\", \"TI\"]\) enables a cache that \
+stores previous results for efficient repeated computations. The default \
+option \!\(\*StyleBox[\"Tabulate->True\", \"TI\"]\) enables the use of \
+tabulated results of various contractions and traces that speeds up the \
+computaiton.", "Documentation" -> None, "OwnValues" -> None, "UpValues" -> 
+    None, "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, CIFAR`CIFARReduce, {CIFAR`CIFARReduce[
+         Pattern[CIFAR`Private`expr, 
+          Blank[]], 
+         Pattern[CIFAR`Private`opts, 
+          OptionsPattern[]]] :> 
+       Module[{CIFAR`Private`result, CIFAR`Private`lookup, 
+          CIFAR`Private`fullyContractedQ = True}, If[
+           OptionValue[CIFAR`UseCache], 
+           CIFAR`Private`lookup = 
+            CIFAR`Private`LookupCIFARReduceCache[CIFAR`Private`expr]; If[
+             Not[
+              MatchQ[
+               Head[CIFAR`Private`lookup], Missing]], 
+             Return[CIFAR`Private`lookup]]; Null]; If[
+           OptionValue[CIFAR`CheckContractions], 
+           Check[CIFAR`Private`fullyContractedQ = 
+             CIFAR`Private`FullyContractedQ[
+               Expand[CIFAR`Private`expr]], 
+             Return[CIFAR`Private`expr], {
+              MessageName[CIFAR`Private`FullyContractedQ, "highcount"], 
+              MessageName[CIFAR`Private`FullyContractedQ, "nocolorobjects"]}]; 
+           Null]; CIFAR`Private`result = Expand[CIFAR`Private`expr]; 
+         Block[{CIFAR`TT, CIFAR`ff, CIFAR`FF, CIFAR`deltaF, CIFAR`deltaA, 
+            CIFAR`dA, CIFAR`dF}, Get[CIFAR`$CIFARPath <> "lib/TT.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/ff.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/FFLoop.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/deltaF.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/deltaA.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/dA.m"]; 
+           Get[CIFAR`$CIFARPath <> "lib/dF.m"]; 
+           CIFAR`Private`result = CIFAR`ToTTProductForm[CIFAR`Private`result]; 
+           CIFAR`Private`result = ReplaceAll[CIFAR`Private`result, {CIFAR`TT[
+                  Pattern[CIFAR`Private`aa, 
+                   Blank[]], 
+                  Pattern[CIFAR`Private`ii, 
+                   Blank[]], 
+                  Pattern[CIFAR`Private`jj, 
+                   Blank[]]]^2 :> CIFAR`ContractTT[
+                  CIFAR`TT[
+                  CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`jj]] 
+                CIFAR`ContractTT[
+                  CIFAR`TT[
+                  CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`jj]]}]; 
+           CIFAR`Private`result = ReplaceAll[CIFAR`Private`result, {CIFAR`TT[
+                 Pattern[CIFAR`Private`aa, 
+                  Blank[]], 
+                 Pattern[CIFAR`Private`ii, 
+                  Blank[]], 
+                 Pattern[CIFAR`Private`jj, 
+                  Blank[]]] :> CIFAR`ContractTT[
+                 CIFAR`TT[
+                 CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`jj]]}]; 
+           CIFAR`Private`result = CIFAR`ContractffTT[CIFAR`Private`result]; 
+           SetOptions[
+            CIFAR`TraceTT, CIFAR`Tabulate -> OptionValue[CIFAR`Tabulate]]; 
+           CIFAR`Private`result = ReplaceAll[CIFAR`Private`result, {CIFAR`TT[
+                  Pattern[CIFAR`Private`aa, 
+                   Blank[]], 
+                  Pattern[CIFAR`Private`ii, 
+                   Blank[]], 
+                  Pattern[CIFAR`Private`ii, 
+                   Blank[]]]^2 :> CIFAR`TraceTT[
+                  CIFAR`TT[
+                  CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`ii]] 
+                CIFAR`TraceTT[
+                  CIFAR`TT[
+                  CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`ii]]}]; 
+           CIFAR`Private`result = ReplaceAll[CIFAR`Private`result, {CIFAR`TT[
+                 Pattern[CIFAR`Private`aa, 
+                  Blank[]], 
+                 Pattern[CIFAR`Private`ii, 
+                  Blank[]], 
+                 Pattern[CIFAR`Private`ii, 
+                  Blank[]]] :> CIFAR`TraceTT[
+                 CIFAR`TT[
+                 CIFAR`Private`aa, CIFAR`Private`ii, CIFAR`Private`ii]]}]; 
+           SetOptions[CIFAR`TraceTT, CIFAR`Tabulate -> True]; 
+           CIFAR`Private`result = 
+            CIFAR`AdjointReduce[
+             CIFAR`Private`result, CIFAR`Private`fullyContractedQ, 
+              CIFAR`Tabulate -> OptionValue[CIFAR`Tabulate]]; Null]; If[
+           OptionValue[CIFAR`UseCache], 
+           CIFAR`Private`UpdateCIFARReduceCache[
+           CIFAR`Private`expr, CIFAR`Private`result]]; 
+         Return[CIFAR`Private`result]; Null]}], "SubValues" -> None, 
+    "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> {
+     CIFAR`CheckContractions -> True, CIFAR`UseCache -> True, CIFAR`Tabulate -> 
+      True}, "Attributes" -> {}, "FullName" -> "CIFAR`CIFARReduce"|>, 
+   False]]], "Output",
+ CellChangeTimes->{3.953150297574552*^9, 3.953159806637179*^9, 
+  3.953314018681036*^9, 3.953381242033777*^9, 3.961778756117556*^9, 
+  3.966993020902339*^9, 3.966993125061947*^9, 3.966993393541473*^9, 
+  3.966993449930456*^9, 3.966993847387314*^9, 3.982857766880641*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"569bfac7-2eed-4048-bb23-371667f26587"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Basic Functionality and Example", "Section",
+ CellChangeTimes->{{3.953144813120797*^9, 3.953144847732127*^9}, {
+  3.953146880803701*^9, 
+  3.953146887201687*^9}},ExpressionUUID->"0b4ff137-0072-4f6a-88ca-\
+a4120eb37133"],
+
+Cell["Consider the following example diagram:", "Text",
+ CellChangeTimes->{{3.953148427537219*^9, 
+  3.953148436764996*^9}},ExpressionUUID->"f6af881f-d842-43ee-933e-\
+bdaf7e03cfd8"],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[RasterBox[CompressedData["
+1:eJztnQvcVVP+/8dlhCSSxl25Ny4ZuSS5JsqlKGLkGgnjlpjEmBCSCNHPZUi5
+iyGTexpi3C8zGdKQ0LiMe2jcWf95r5nv+a+z2/s85/Q8Pfus83zer9eunnP2
+822ds/de67O+3+/6rnb9T+h95KI/+9nPBi/5nz96HzZkx5NOOmxon+X+88O+
+xw8+euDxA47ocfzJAwYOOKlT/8X+8+Kk/xx9/3P+4v/52wkhhBBCCCGEEEII
+IYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEaJL8+OOPeTdBCCGEECJ6Zs2a
+5TbffHN37LHHSl8JIYQQQtSDd955x51yyinusccey7spQogc+eyzz9w555zj
++vXr5w499FD37rvv5t0kIYQQQogowV/95ptvuj59+rhtt93WffLJJ3k3SQgh
+hBAiWubOnet22mkn95vf/EZ5AZHw73//291xxx3uggsu8Merr77qnnnmGffl
+l1/m3TRRAU8//bS76KKL3IgRI9yUKVPcK6+84t566628myUq4IMPPnCXXnqp
+O/XUU90TTzyRd3OEEFXAyy+/7NZee213ww035N0UUQbvv/++6927txsyZIj7
+5ptvfOy2V69ebrXVVnNPPfVU3s0TZfD999+7888/33Xr1s29/fbb/ufhw4e7
+FVdc0Z133nl5N0+Uybx589zIkSPd66+/7i6++GK3yy67uC+++CLvZgkhcubW
+W2917dq1c3/729/yboqoA/rxgw46yPXo0cN9+umn/jV8jIMGDXIdO3b0msvA
+d/X1118XfkaDqc+vDsaNG+fWXXfdIh183333uVVXXdXde++9RedyfdHO+CTx
+U4rq4dFHH/Xz0W+//dYdeOCBbvfdd/fPaBKeO+ICQojahz77xBNPLMqtIp7E
+nJl52OzZs3NuoQi56667XOvWrd2NN95YeI1+fLfddnOHHHKI++GHHwqvM3a3
+atXK6y2Ozp07+7iTyJc5c+a4Dh06eH3MeGwQS2rfvr3PdzTeeOMNd+655/rr
+PWHCBNe9e3d/Hv4tkT/Ebd977z2veddbbz03duzYwntc24ceesjHeDfddFN3
+3XXX5ddQIUSjwXrAHXbYwedW0Vfffvvt7tprr3X33HOPW2mllXwfLqoDrg/a
+Cd/izJkzC68Tg6BPv+qqq4rOv+222/y6b/QxuVhca5E/t9xyi2vRooXXvQbX
+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
+hJCuihf00xtvvOFmzpzpPvnkk6L33n33XbfYYou5AQMG5NQ6USnSVfEjXSWE
+kK6qXahftcsuu+TdDFEm0lXxI10lhJCuqk1YB9i6dWu355575t0UUSbSVfEj
+XSWEkK6Kk88//9yNGzfOHXfccb7WAmPy1KlT3ffff+/ff/jhh/11pSaDiAPp
+qviRrhJCSFfFx4wZM7wvyvLVF1lkkcK/11prLV8bdOutt3bNmjVzH330Ud7N
+FWUiXRU/0lVCCOmq+Nh55529Zrr99tvdt99+61+bM2eOr8G+9NJLFzTW6NGj
+c26pqATpqviRrhJCSFfFB7qKvf+Suoq+vHnz5tJVkSJdFT/SVUII6ar4SMYB
+F1100cK/1157bcUBI0W6Kn6kq4QQ0lVxMnfu3KK89WHDhqXmrY8aNSrnlopy
+ka6KH+kqIYR0VW2iOgvxIV0VP9JVQgjpqtpFdUHjQroqfqSrhBDSVfHCPjaz
+Zs1yr776qvv000+L3tM+NvEhXRU/0lVCCOmq+Mjad3njjTfWvssRI10VP9JV
+QgjpqvhAU3HNunTp4kaOHOnGjBnjBg8e7DbYYIMinbXNNtvk3VRRAdJV8SNd
+JYSQroqPTp06uWWXXdZ98803Ra/PmzfPtWnTpqCr5KuKC+mq+JGuEkJIV8UH
+e/5xzchLp8bCoEGDXO/evV3Lli396/Z3+/bt/bpAEQfSVfEjXSWEkK6KE/as
+6dChQ8E3tdxyy/maCtQEhQsvvNC//sADD+TcUlEu0lXxI10lhJCuihv8Uexl
+k/RLsT6QvW4OOuignFomKkW6Kn6kq4QQ0lW1C3HCbt265d0MUSbSVfEjXSWE
+kK6qTdjPhjyrvfbaK++miDKRroof6SohhHRVnLz22mvujDPOcHvssYfbdddd
+fbzvmmuucR9//LF/nzwrruuVV16Zc0tFuUhXxY90lRBCuio+pk2b5pZaail/
+3VZZZRW31lpruSWXXLKQvz58+HC37rrruhYtWrgvvvgi7+aKMpGuih/pKiGE
+dFV8bLfddq558+bu+eefL7xGjfX777+/UGOB45ZbbsmxlaJSpKviR7pKCCFd
+FR89e/Z0iy66qK9jNXPmTPf22297H9Ypp5zi1wCarqIGu4gH6ar4ka4SQkhX
+xcd7773n1l9//aI9a+zYfvvt3fTp093uu+/u912eM2dO3s0VZSJdFT/SVUII
+6ao4Ye/lRx55xI0ePdrvETh+/Hg3e/bswvvPPPOMv66M1SIOpKviR7pKCFEf
+XcXY/sMPPyyEVomGYOWVV/Z+KxEH0lXxI10lhFhQXcU6s/3339/HnWxtv6gu
+1lhjDde9e/e8m1HzML9oCKSr4mdBdFVD3T9CiOrAdNX5559f0e/NmzfPnXfe
+ee7666+XzyonGH+nTJni7rvvPvfCCy/4WqDG66+/7hZZZBF3/PHH59jC2mfW
+rFlu8803d8cee2y9x0fpqvgxXTVmzJiyzm/I+0cIUR089thjvh/o27dv3k0R
+ZfLVV1+5Pn36+Lz0MGed2lX0z+wNOHDgQP/aSy+9NN/v//vf/3Z33HGHX0/I
+8eqrr/p8rC+//DKHTxM377zzjl+HyXNUCW+99ZabOnVq0UFtV67Z7bffPt97
+oWYW1cs999zjr+Fhhx1W1vkLev8IIaqXY445xvcDq666at5NEWXSv39/f80O
+PPBAN3HiRDd58mR3+eWX+7rroc7ae++95/vd999/3/Xu3dsNGTLEffPNN+7d
+d991vXr1cquttpp76qmncvg0TZOnn346dT1n2tGxY8e8myvK5OCDD/bXjFq9
+QoimB7UkW7duXei/yxlXGZcvvfRSd+qpp/oxXb7rxqdz585u2WWXdZ988knR
+69RUaNOmTeF64ucIIXaLT6RHjx7epwVcv0GDBvmxm2ubBv/PG2+8sXA+TBOG
+77wcXTVu3Li8myrKAD8yz6VdN2KCQoimBfW4w/4b/0cpGHfZI4Xx+4knnnCb
+brppapxJLFzIaSN3aplllvE+KvZW5lrwGvVCu3bt6hZffHG/xw3a2bjrrru8
+jr7xxhsLr6G1dtttN3fIIYek5skRMzz00EPd6aefLg0d8MEHHxTmFzwLCwJ6
+qS5N1apVKz9ei+oneT0HDBiQeW5D3D9CiOpj2223LeoHmjVr5j788MPUcxlT
+2cP3ueee8z+TR9C2bVv35JNPNmaTxf+49957vZ5ac801vX5CV5GjTv46sAcz
+1xSfIpCfg3Zq166dr9FukN++3nrruauuuir1/7ntttvcZptt5k477TTpqv+B
+FqVmGN/dxRdf7HbZZZcF2ocRvYRuKqWrVDM/Hsg/D6/d0ksv7T777LP5zmuo
++0cIUV3gZ0rrx0eMGJF6Prk4aCjLnz3nnHP8WE5+jqg+8DPRr9t6BGJ5xA/x
+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
+5hn3008/+fenTZvmr+u5556bc0tFuUhXxY90lRBCuio+Zs2a5VZZZZWinHU7
+NtxwQzdlyhS3/fbbu5///OcaoyNCuip+pKuEENJV8UHOFJrpuuuuc5988onP
+X58xY4b3WVltUI7hw4fn3VRRAdJV8SNdJYSQroqPHXfc0e/9d//99xfifuir
+66+/vqj2whVXXJFzS0UlSFfFj3SVEEK6Kj7++te/upYtW/rr1qxZM1973bQU
++wSOHz/ebbbZZt539emnn+bdXFEm0lXxI10lhJCuipMPPvjA76182GGH+T0C
+Bw8e7O6+++7C3jb4sriuF198cc4tFeUiXRU/0lVCCOmq2oT4YKtWrVzPnj3z
+boooE+mq+JGuEkJIV9Uu7dq1c7vsskvezRBlIl0VP9JVQgjpqnj58ccf/Rj8
+z3/+sxD/M4gTLr744q5///45tU5UinRV/EhXCSGkq+KDGN+ZZ57pc9QtXx0N
+tfXWW7urrrrK6y32X+b1Rx99NO/mijKRroof6SohhHRVfPzud7/z14w1f2ec
+cYY777zz3MCBA90aa6xRVCN08803z7upogKkq+JHukoIUUu6ivqYd9xxh6+P
+yfHqq6/6vV2+/PLLvJvWoHTq1MnXVvj222+LXicW2KZNm4KueuKJJ3JqYf14
++umn/f04YsQIXzv+lVdecW+99VbezVroSFfFj3SVEKJWdNX777/vevfu7YYM
+GeK++eYb9+6777pevXq51VZbzT311FN5N69BsRgfe9awNyA+q4MPPtj94he/
+KPJXdejQoVA3NAa+//57d/7557tu3bq5t99+2/9MzXj2j8YnV+tIV8WPdJUQ
+ohZ01bx589xBBx3kevToUaiDSY7RoEGDXMeOHb3mSsL7jN3vvfdeYze3QRg5
+cqRbe+21CxqK+uvUYafmOloKHcLrDz/8cN5NLZtx48a5ddddt0gH33fffT6P
+7N57753vfK7rG2+84fVXLSBdFT/SVUKIWtBVd911l2vdurW78cYbC6+htXbb
+bTd3yCGHuB9++KHwOnqK+pknnniimzBhgjv33HPdJZdc4l+PkS+++MLvYfPd
+d98Vvf7RRx/5PQT5/DEwZ84c719DH4fxzUsvvdS1b9/evfnmm4XX0FL46EaN
+GuWGDRvmttlmG6/JwuscI9JV8VPruuqdd95xV155pfcrX3PNNT4+/+KLL0bb
+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
+    "], {{0, 176.}, {598., 0}}, {0, 255},
+    ColorFunction->RGBColor],
+   BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+   Selectable->False],
+  DefaultBaseStyle->"ImageGraphics",
+  ImageSize->{452.33333333333275`, Automatic},
+  ImageSizeRaw->{598., 176.},
+  PlotRange->{{0, 598.}, {0, 176.}}]], "Text",
+ CellChangeTimes->{{3.953148440454287*^9, 3.9531484425495777`*^9}, {
+  3.953148685574746*^9, 
+  3.95314868766918*^9}},ExpressionUUID->"ee9123f1-25c0-464b-b74c-\
+7b005447c568"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["q", "TI"], 
+         OverscriptBox[
+          StyleBox["q", "TI"], "_"], "\[Rule]", "\[Gamma]", 
+         StyleBox["g", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "q\\bar {q} \\rightarrow\\gamma g", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],
+  FontWeight->"Plain",ExpressionUUID->
+  "dac918bc-95e9-4b4e-bd76-d0ad9951c6ec"],
+ " ",
+ StyleBox["at Three Loops",
+  FontWeight->"Bold"],
+ "\nAll fermion lines are quarks, with fundamental color indices labeled ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["i", "TI"], ", ", 
+         StyleBox["j", "TI"], ", ", 
+         StyleBox["k", "TI"], ", ", 
+         SubscriptBox[
+          StyleBox["i", "TI"], "1"], ", ", 
+         SubscriptBox[
+          StyleBox["i", "TI"], "2"], ", ", 
+         SubscriptBox[
+          StyleBox["i", "TI"], "3"], ","}], TraditionalForm], "errors" -> {}, 
+     "input" -> "i, \\, j, \\, k, \\, i_ 1, \\, i_ 2, \\, i_ 3, ", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "a4a0daf2-f077-45be-8b40-e390f4814dc9"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["i", "TI"], "4"], TraditionalForm], "errors" -> {}, "input" -> 
+     "i_ 4", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "606771bc-2759-431a-b3cb-8bca9243a624"],
+ " . Gluons have adjoint color indices labeled ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          StyleBox["a", "TI"], "1"], ", ", 
+         SubscriptBox[
+          StyleBox["a", "TI"], "2"], ", ", 
+         SubscriptBox[
+          StyleBox["a", "TI"], "3"], ", ", 
+         SubscriptBox[
+          StyleBox["a", "TI"], "4"], ", ", 
+         SubscriptBox[
+          StyleBox["a", "TI"], "5"]}], TraditionalForm], "errors" -> {}, 
+     "input" -> "a_ 1, \\, a_ 2, \\, a_ 3, \\, a_ 4, \\, a_ 5", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4d42a3d2-9711-487d-8fd0-945fc8ddae04"],
+ ",  and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["a", "TI"], "6"], TraditionalForm], "errors" -> {}, "input" -> 
+     "a_ 6", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "129377a6-8e73-439e-b320-14e30e2fbcd7"],
+ ". We can project the color factor to a scalar quantity by contracting with ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubsuperscriptBox[
+        StyleBox["t", "TI"], 
+        RowBox[{
+          StyleBox["i", "TI"], 
+          StyleBox["k", "TI"]}], 
+        SubscriptBox[
+         StyleBox["a", "TI"], "1"]], TraditionalForm], "errors" -> {}, 
+     "input" -> "t^{a_1}_{i k}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "0a5970fd-594d-4339-b836-f0edf4263b5a"],
+ ". From QCD Feynman rules, the color factor for this diagram after \
+projecting is:\n",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["D", "TI"], "\[LongEqual]", 
+         SubscriptBox["\[Delta]", 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["i", "TI"], "1"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "2"]}]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["i", "TI"], "2"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "3"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "1"]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["i", "TI"], "3"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "4"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "2"]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["i", "TI"], "4"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "1"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "3"]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            StyleBox["i", "TI"], 
+            StyleBox["k", "TI"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "1"]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            StyleBox["k", "TI"], 
+            StyleBox["j", "TI"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "5"]], 
+         SubsuperscriptBox[
+          StyleBox["t", "TI"], 
+          RowBox[{
+            StyleBox["j", "TI"], 
+            StyleBox["i", "TI"]}], 
+          SubscriptBox[
+           StyleBox["a", "TI"], "6"]], 
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "3"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "4"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "5"]}]], 
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "2"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "6"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "4"]}]]}], TraditionalForm], "errors" -> {},
+      "input" -> 
+     "D=\\delta_{i_1 i_2} t^{a_1}_{i_2 i_3} t^{a_2}_{i_3 i_4}  t^{a_3}_{i_4 \
+i_1} t^{a_1}_{i k}t^{a_5}_{k j}t^{a_6}_{j i} f^{a_3 a_4 a_5} f^{a_2 a_6 a_4}",
+      "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9e62b190-c0e9-4ed8-989d-e86d98538bd0"],
+ ".\nWe express this in ",
+ StyleBox["CIFAR",
+  FontSlant->"Italic"],
+ " as the product of various color objects:"
+}], "Text",
+ CellChangeTimes->{{3.953148732331419*^9, 3.953148803706026*^9}, {
+  3.953149316672318*^9, 3.953149359185423*^9}, {3.953149441898522*^9, 
+  3.953149495267425*^9}, {3.9531501848497143`*^9, 3.9531502079729156`*^9}, {
+  3.953152057108127*^9, 
+  3.953152101375161*^9}},ExpressionUUID->"4a9f8484-3fe7-4fb3-80ea-\
+7bdb86a9836b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"expr", "=", 
+   RowBox[{
+    RowBox[{"deltaF", "[", 
+     RowBox[{"i1", ",", "i2"}], "]"}], " ", 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a1", "}"}], ",", "i2", ",", "i3"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a2", "}"}], ",", "i3", ",", "i4"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a3", "}"}], ",", "i4", ",", "i1"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a1", "}"}], ",", "i", ",", "k"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a5", "}"}], ",", "k", ",", "j"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", "a6", "}"}], ",", "j", ",", "i"}], "]"}], 
+    RowBox[{"ff", "[", 
+     RowBox[{"a3", ",", "a4", ",", "a5"}], "]"}], 
+    RowBox[{"ff", "[", 
+     RowBox[{"a2", ",", "a6", ",", "a4"}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.953150209137762*^9, 3.953150243723371*^9}, 
+   3.953150312574654*^9, {3.953150376924765*^9, 3.95315043531022*^9}, {
+   3.953152121945655*^9, 3.953152123592524*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"21ffe268-9f3d-4c7f-a04f-05b9e777c5de"],
+
+Cell[TextData[{
+ StyleBox["ff", "Input"],
+ "\[CloseCurlyQuote]s represent structure constants, ",
+ StyleBox["TT", "Input"],
+ "\[CloseCurlyQuote]s represent generators in the fundamental representation, \
+and ",
+ StyleBox["deltaF", "Input"],
+ " is a Kronecker delta symbol in the fundamental representation."
+}], "Text",
+ CellChangeTimes->{{3.953151781177651*^9, 3.953151860937302*^9}, {
+  3.9531521603901787`*^9, 3.95315219746741*^9}, {3.953381306384985*^9, 
+  3.953381307531554*^9}},ExpressionUUID->"833c65d2-88ef-416c-9710-\
+719eeaf1eb12"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Full Reduction using ",
+ StyleBox["CIFARReduce", "Input"]
+}], "Subsection",
+ CellChangeTimes->{{3.953150450614582*^9, 3.953150453274495*^9}, {
+  3.953150999815243*^9, 
+  3.9531510048752747`*^9}},ExpressionUUID->"79936e26-276a-458d-ad25-\
+96b4066cbe85"],
+
+Cell["\<\
+To fully reduce this expression in terms of Casimir invariants / dimensions \
+of representations of the color algebra, we can use the all-in-one function:\
+\>", "Text",
+ CellChangeTimes->{{3.953150457638755*^9, 3.95315047274004*^9}, {
+  3.953150537023712*^9, 
+  3.953150568862536*^9}},ExpressionUUID->"03cc97b1-ca13-43d8-b6e4-\
+b83321fd1b38"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"exprCIFAR", "=", 
+  RowBox[{"CIFARReduce", "[", "expr", "]"}]}]], "Input",
+ CellChangeTimes->{{3.953150571160634*^9, 3.9531505790586643`*^9}, {
+  3.9669917809589977`*^9, 3.966991789810926*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"f5074022-c254-4263-af77-51688a100f7e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "8"], " ", 
+   SuperscriptBox["CA", "2"], " ", "DA", " ", 
+   SuperscriptBox["TF", "2"]}]}]], "Output",
+ CellChangeTimes->{
+  3.953150579422783*^9, 3.9531521283377953`*^9, 3.9531598067957563`*^9, 
+   3.9533140188362503`*^9, 3.953381242214281*^9, 3.954527214205985*^9, 
+   3.9545272496906853`*^9, 3.9617787699881763`*^9, {3.966991769839902*^9, 
+   3.966991785623088*^9}, 3.966993125249909*^9, 3.966993393586197*^9, 
+   3.9669934501181707`*^9, 3.9669938475770884`*^9, 3.982857789609434*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"e819506d-2490-421c-a2d3-23d385489c0a"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Here, ",
+ StyleBox["CA", "Input"],
+ " and ",
+ StyleBox["C3FF", "Input"],
+ " are  quadratic and cubic Casimir invariants respectively, ",
+ StyleBox["DA", "Input"],
+ " is the dimension of the adjoint representation, and ",
+ StyleBox["TF", "Input"],
+ " is the quadratic Dynkin index of the fundamental representation. "
+}], "Text",
+ InitializationCell->True,
+ CellChangeTimes->{{3.953150598399734*^9, 3.953150614328239*^9}, {
+  3.9531506491424637`*^9, 3.953150763103798*^9}, {3.953381336008728*^9, 
+  3.953381362328638*^9}},ExpressionUUID->"198a944f-49c8-447d-a58f-\
+c938e7f463de"],
+
+Cell[TextData[{
+ "Alternatively, we can explicitly evaluate the color factor in the QCD gauge \
+group ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"SU", "(", 
+         SubscriptBox[
+          StyleBox["n", "TI"], 
+          StyleBox["c", "TI"]], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "\\text{SU}(n_c)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "483ee0b4-7e7b-4d1b-8bdd-559509b9d243"],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["n", "TI"], 
+        StyleBox["c", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "n_c", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "bf297139-7c00-4d99-9b5d-9d0778c06c1b"],
+ " is the number of colors:"
+}], "Text",
+ CellChangeTimes->{{3.953150788640934*^9, 
+  3.953150846920608*^9}},ExpressionUUID->"5974f817-db50-4ebc-babd-\
+f90e8e2b3b29"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"exprSUnc", "=", 
+  RowBox[{"SUncReduce", "[", "expr", "]"}]}]], "Input",
+ CellChangeTimes->{{3.9531508516684427`*^9, 3.953150862755938*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"bda27b4e-3e27-46bc-9762-d902542cac09"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox["1", "8"]}], "+", 
+  FractionBox[
+   RowBox[{"3", " ", 
+    SuperscriptBox["nc", "2"]}], "16"], "-", 
+  FractionBox[
+   SuperscriptBox["nc", "4"], "16"]}]], "Output",
+ CellChangeTimes->{3.9828577980551453`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"72806a01-e678-4eec-aa35-366d7195d0ae"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Lastly, let\[CloseCurlyQuote]s ensure the answer ",
+ StyleBox["exprCIFAR", "Input"],
+ ", in terms of invariants, matches the above when ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"SU", "(", 
+         SubscriptBox[
+          StyleBox["n", "TI"], 
+          StyleBox["c", "TI"]], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "\\text{SU}(n_c)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "d1784356-8866-45e3-8cea-d8ab21902060"],
+ " values are plugged in:"
+}], "Text",
+ CellChangeTimes->{{3.953150879315299*^9, 3.953150977113587*^9}, {
+   3.953159885477624*^9, 3.953159895547407*^9}, 
+   3.9533813928220377`*^9},ExpressionUUID->"6c1cc072-d3ae-48ee-8b9a-\
+7a79611655fe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SUncReduce", "[", "exprCIFAR", "]"}], "//", "Expand"}]], "Input",
+ CellChangeTimes->{{3.953150978507812*^9, 3.953150986642125*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"dda86930-4585-4975-bb9e-28b352edaf7b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox["1", "8"]}], "+", 
+  FractionBox[
+   RowBox[{"3", " ", 
+    SuperscriptBox["nc", "2"]}], "16"], "-", 
+  FractionBox[
+   SuperscriptBox["nc", "4"], "16"]}]], "Output",
+ CellChangeTimes->{3.953150986907*^9, 3.953159806842251*^9, 
+  3.9533812422703876`*^9, 3.961778779022324*^9, 3.9669931254502087`*^9, 
+  3.9669933936615963`*^9, 3.966993450161235*^9, 3.966993847619906*^9, 
+  3.982857801017358*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"1f9c78d1-8bc7-4932-9fbc-5678e6467132"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Step-by-step Reduction using Auxiliary Functions", "Subsection",
+ CellChangeTimes->{{3.953151017015657*^9, 
+  3.95315103270903*^9}},ExpressionUUID->"ae7f2d4c-2006-40f5-a0b5-\
+4b75456e8821"],
+
+Cell[TextData[{
+ "Here, we do a step-by-step reduction using auxiliary functions that ",
+ StyleBox["CIFARReduce", "Input"],
+ " incorporates when fully reducing expressions."
+}], "Text",
+ CellChangeTimes->{{3.953151396447535*^9, 3.953151473572394*^9}, 
+   3.953393290470777*^9},ExpressionUUID->"64aea5f0-feb1-43d2-988c-\
+95bc24a79e14"],
+
+Cell[TextData[{
+ "First, we identify how the fundamental generators ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubsuperscriptBox[
+        StyleBox["t", "TI"], 
+        RowBox[{
+          StyleBox["i", "TI"], 
+          StyleBox["j", "TI"]}], 
+        StyleBox["a", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "t^{a}_{i j}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "5db9c971-aa8d-42a0-912c-06fb471b63ba"],
+ " are traced over, using ",
+ StyleBox["ToTTProductForm", "Input"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.953151482250854*^9, 
+  3.953151556345769*^9}},ExpressionUUID->"d1be5f05-d567-452d-9082-\
+2b70dbfca86d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr2", "=", 
+  RowBox[{"ToTTProductForm", "[", "expr", "]"}]}]], "Input",
+ CellChangeTimes->{{3.953151532178323*^9, 3.953151542029634*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"2737c281-c61a-4345-8858-c5fac6070196"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ff", "[", 
+   RowBox[{"a2", ",", "a6", ",", "a4"}], "]"}], " ", 
+  RowBox[{"ff", "[", 
+   RowBox[{"a3", ",", "a4", ",", "a5"}], "]"}], " ", 
+  RowBox[{"TT", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a3", ",", "a1", ",", "a2"}], "}"}], ",", "i4", ",", "i4"}], 
+   "]"}], " ", 
+  RowBox[{"TT", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a6", ",", "a1", ",", "a5"}], "}"}], ",", "j", ",", "j"}], 
+   "]"}]}]], "Output",
+ CellChangeTimes->{3.9531515422959633`*^9, 3.953159806857873*^9, 
+  3.9533812422958307`*^9, 3.961778781225162*^9, 3.966993125486321*^9, 
+  3.966993393792203*^9, 3.966993450282784*^9, 3.9669938476574783`*^9, 
+  3.9828578067572317`*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"67a2cd89-82e1-49a4-9c23-2c36ffa94019"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Now, the fundamental traces are explicit in the form of ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SuperscriptBox[
+          StyleBox["T", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "1"], "\[Ellipsis]", 
+            SubscriptBox[
+             StyleBox["a", "TI"], 
+             StyleBox["n", "TI"]]}]], "\[Congruent]", "Tr", 
+         RowBox[{"[", 
+           RowBox[{
+             SuperscriptBox[
+              StyleBox["t", "TI"], 
+              SubscriptBox[
+               StyleBox["a", "TI"], "1"]], "\[Ellipsis]", 
+             SuperscriptBox[
+              StyleBox["t", "TI"], 
+              SubscriptBox[
+               StyleBox["a", "TI"], 
+               StyleBox["n", "TI"]]]}], "]"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "T^{a_1 \\dots a_n}\\equiv \\text{Tr}[t^{a_1}\\dots t^{a_n}]", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "a9edf7ff-cccd-44a2-a4bf-6bb341b475a5"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.953151565736598*^9, 3.953151620754684*^9}, {
+   3.953151757118216*^9, 3.953151770553825*^9}, {3.953152213769773*^9, 
+   3.9531522169339027`*^9}, {3.95315231761084*^9, 3.953152323475336*^9}, {
+   3.953158131648869*^9, 3.9531582138257017`*^9}, 
+   3.953159913783841*^9},ExpressionUUID->"ffe12897-f895-4895-9623-\
+c24f635684a4"],
+
+Cell[TextData[{
+ "Normally, the next step would be to simplify adjoint contractions within a \
+fundamental trace (e.g. a term like ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SuperscriptBox[
+        StyleBox["T", "TI"], 
+        RowBox[{
+          StyleBox["a", "TI"], 
+          StyleBox["b", "TI"], 
+          StyleBox["c", "TI"], 
+          StyleBox["a", "TI"]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "T^{a b c a}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "228b4744-ed05-4644-960b-93b248b470b4"],
+ ") and then double contractions between structure constants and fundamental \
+traces (e.g. a term like ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "1"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "2"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "3"]}]], 
+         SuperscriptBox[
+          StyleBox["T", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "1"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "4"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "5"], 
+            SubscriptBox[
+             StyleBox["a", "TI"], "2"]}]]}], TraditionalForm], "errors" -> {},
+      "input" -> "f^{a_1_a_2a_3}T^{a_1 a_4 a_5 a_2}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "251a24d8-046f-4837-b5be-6ae5ae6c4556"],
+ "). This is not necessary for the term above. However, if necessary, the \
+required functions are ",
+ StyleBox["ContractTT", "Input"],
+ " and ",
+ StyleBox["ContractffTT", "Input"],
+ " respectively; we display examples below."
+}], "Text",
+ CellChangeTimes->{{3.953151565736598*^9, 3.953151620754684*^9}, {
+   3.953151757118216*^9, 3.953151770553825*^9}, {3.953152213769773*^9, 
+   3.9531522169339027`*^9}, {3.95315231761084*^9, 3.953152323475336*^9}, {
+   3.953158131648869*^9, 3.9531581647462473`*^9}, {3.953158263908424*^9, 
+   3.953158282112108*^9}, {3.9531583373236427`*^9, 3.9531583775491133`*^9}, {
+   3.953158408742944*^9, 3.9531584892773457`*^9}, {3.9531585668103247`*^9, 
+   3.953158568379242*^9}, 
+   3.9533933339932747`*^9},ExpressionUUID->"9c3f0bf4-b415-4b1d-8d1f-\
+dc2307fd1804"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Simplify", " ", "contraction", " ", "within", " ", "a", " ", 
+    "fundamental", " ", "trace"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"ContractTT", "[", 
+   RowBox[{"TT", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "c", ",", "a"}], "}"}], ",", "i", ",", 
+     "i"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.953158380575149*^9, 3.953158383025343*^9}, {
+  3.953158491399171*^9, 3.953158511310834*^9}, {3.953159938854916*^9, 
+  3.953159950039468*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"606b03b0-2cef-4baa-8db2-97ca6c88a0c8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"-", 
+    FractionBox["1", "2"]}], " ", "CA", " ", "TF", " ", 
+   RowBox[{"deltaA", "[", 
+    RowBox[{"b", ",", "c"}], "]"}]}], "+", 
+  RowBox[{"CF", " ", "TF", " ", 
+   RowBox[{"deltaA", "[", 
+    RowBox[{"b", ",", "c"}], "]"}]}], "+", 
+  RowBox[{"\[ImaginaryI]", " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"c", ",", "a", ",", "a13"}], "]"}], " ", 
+   RowBox[{"TT", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b", ",", "a13"}], "}"}], ",", "i", ",", "i"}], 
+    "]"}]}]}]], "Output",
+ CellChangeTimes->{3.953158512086115*^9, 3.953159806880537*^9, 
+  3.953381242324924*^9, 3.96177878364676*^9, 3.966993125525909*^9, 
+  3.966993393831555*^9, 3.966993450315031*^9, 3.966993847690536*^9, 
+  3.982857810065898*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"b76dda28-1fcc-4cb3-82e5-7fdffb36c7a4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Simplify", " ", "double", " ", "contraction", " ", "between", " ", "a", 
+    " ", "fundamental", " ", "trace", " ", "and", " ", "a", " ", "structure", 
+    " ", "constant"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"ContractffTT", "[", 
+   RowBox[{
+    RowBox[{"ff", "[", 
+     RowBox[{"a1", ",", "a2", ",", "a3"}], "]"}], 
+    RowBox[{"TT", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"a1", ",", "a4", ",", "a5", ",", "a2"}], "}"}], ",", "i", ",", 
+      "i"}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.953158516065756*^9, 3.953158541199831*^9}, {
+  3.953159952953331*^9, 3.953159964703267*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"a60f99ad-1630-4930-a4fb-368b0cec5478"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[ImaginaryI]", " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"a1", ",", "a2", ",", "a3"}], "]"}], " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"a4", ",", "a2", ",", "a15"}], "]"}], " ", 
+   RowBox[{"TT", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a1", ",", "a15", ",", "a5"}], "}"}], ",", "i", ",", "i"}], 
+    "]"}]}], "+", 
+  RowBox[{"\[ImaginaryI]", " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"a1", ",", "a2", ",", "a3"}], "]"}], " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"a5", ",", "a2", ",", "a14"}], "]"}], " ", 
+   RowBox[{"TT", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a1", ",", "a4", ",", "a14"}], "}"}], ",", "i", ",", "i"}], 
+    "]"}]}], "+", 
+  RowBox[{
+   FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "CA", " ", 
+   RowBox[{"TT", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a3", ",", "a4", ",", "a5"}], "}"}], ",", "i", ",", "i"}], 
+    "]"}]}]}]], "Output",
+ CellChangeTimes->{3.95315854280293*^9, 3.95315980689601*^9, 
+  3.953381242356408*^9, 3.961778785009066*^9, 3.966993125560534*^9, 
+  3.9669933938681803`*^9, 3.966993450354628*^9, 3.9669938477287292`*^9, 
+  3.9828578124902077`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"4cccc626-98c7-4b3f-97f8-51420b81ea78"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Now, there should be no adjoint contractions within a particular \
+fundamental trace (i.e. all indices within a ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SuperscriptBox[
+        StyleBox["T", "TI"], 
+        RowBox[{
+          SubscriptBox[
+           StyleBox["a", "TI"], "1"], "\[Ellipsis]", 
+          SubscriptBox[
+           StyleBox["a", "TI"], 
+           StyleBox["n", "TI"]]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "T^{a_1 \\dots a_n}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "dc783262-c7cc-4050-96da-9c4468ba9479"],
+ " are unique), and only single contractions between structure constants ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["f", "TI"], TraditionalForm], "errors" -> {}, "input" -> "f", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c459952f-46fb-4650-b2de-2cb1c83af195"],
+ " and fundamental traces ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["T", "TI"], TraditionalForm], "errors" -> {}, "input" -> "T", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "32cec0a5-afa2-4ed7-ae25-a34727c9e462"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.953158553123856*^9, 3.9531585954652*^9}, {
+  3.953159979467347*^9, 
+  3.953160025674572*^9}},ExpressionUUID->"cc4208f0-fdb4-4719-be36-\
+a7cdcbd79199"],
+
+Cell[TextData[{
+ "Returning to the original expression at hand, we now compute the traces of \
+fundamental generators using ",
+ StyleBox["TraceTT", "Input"],
+ ", which should leave us with tensors only in the adjoint representation \
+(including symmetric color tensors ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SubscriptBox[
+        StyleBox["d", "TI"], 
+        StyleBox["F", "TI"]], TraditionalForm], "errors" -> {}, "input" -> 
+     "d_F", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "37ff1879-4428-441c-b822-41479fcd75f1"],
+ "):"
+}], "Text",
+ CellChangeTimes->{{3.953151565736598*^9, 3.953151620754684*^9}, {
+  3.953158597895557*^9, 3.953158631632147*^9}, {3.953158741968315*^9, 
+  3.95315874456631*^9}, {3.953158800085964*^9, 
+  3.9531588230889*^9}},ExpressionUUID->"30c428c2-2b33-4a07-88d8-115c01b207ba"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr3", "=", 
+  RowBox[{"expr2", "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"TT", "[", 
+      RowBox[{"a_", ",", "i_", ",", "i_"}], "]"}], ":>", 
+     RowBox[{"TraceTT", "[", 
+      RowBox[{"TT", "[", 
+       RowBox[{"a", ",", "i", ",", "i"}], "]"}], "]"}]}], "}"}]}]}]], "Input",\
+
+ CellChangeTimes->{{3.95315162228237*^9, 3.9531516911727*^9}, {
+  3.95315230096154*^9, 3.953152301248637*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"967283b2-1566-4d12-843c-19042f93da41"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ff", "[", 
+   RowBox[{"a2", ",", "a6", ",", "a4"}], "]"}], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"dF", "[", 
+     RowBox[{"a1", ",", "a2", ",", "a3"}], "]"}], "+", 
+    RowBox[{
+     FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "TF", " ", 
+     RowBox[{"ff", "[", 
+      RowBox[{"a3", ",", "a1", ",", "a2"}], "]"}]}]}], ")"}], " ", 
+  RowBox[{"ff", "[", 
+   RowBox[{"a3", ",", "a4", ",", "a5"}], "]"}], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"dF", "[", 
+     RowBox[{"a1", ",", "a5", ",", "a6"}], "]"}], "+", 
+    RowBox[{
+     FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "TF", " ", 
+     RowBox[{"ff", "[", 
+      RowBox[{"a6", ",", "a1", ",", "a5"}], "]"}]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{{3.953151659127927*^9, 3.9531516916116734`*^9}, 
+   3.953152301645474*^9, 3.953159806915558*^9, 3.953381242384756*^9, 
+   3.961778789360044*^9, 3.966993125600788*^9, 3.9669933939062157`*^9, 
+   3.966993450387727*^9, 3.966993847761998*^9, 3.982857816545643*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"bc7015dd-7112-4671-9bb1-67eb32339454"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Now, all objects only carry adjoint indices. Next, we need to identify how \
+the structure constants are traced over, using ",
+ StyleBox["ToFFLoopForm", "Input"]
+}], "Text",
+ CellChangeTimes->{{3.953158656402432*^9, 3.953158671570937*^9}, {
+  3.953158711354056*^9, 
+  3.953158770300613*^9}},ExpressionUUID->"540db91e-3fb4-4932-894a-\
+e49feee6b33b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr4", "=", 
+  RowBox[{"ToFFLoopForm", "[", "expr3", "]"}]}]], "Input",
+ CellChangeTimes->{{3.953158756771872*^9, 3.953158780543477*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"869623c0-f77c-4740-b608-4a97ec78b754"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "4"], " ", 
+   SuperscriptBox["TF", "2"], " ", 
+   RowBox[{"FF", "[", 
+    RowBox[{"{", 
+     RowBox[{"a2", ",", "a5", ",", "a2", ",", "a5"}], "}"}], 
+    "]"}]}]}]], "Output",
+ CellChangeTimes->{3.953158781016354*^9, 3.953159806978517*^9, 
+  3.9533812424592857`*^9, 3.9617787909069643`*^9, 3.9669931256858053`*^9, 
+  3.9669933939424686`*^9, 3.966993450467375*^9, 3.9669938478400803`*^9, 
+  3.982857821552415*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"b0d8a063-d8de-4aa7-8d5d-018ad4389bf5"]
+}, Open  ]],
+
+Cell[TextData[{
+ "This introduces \[OpenCurlyDoubleQuote]loop\[CloseCurlyDoubleQuote] objects \
+",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SuperscriptBox[
+          StyleBox["F", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "1"], "\[Ellipsis]", 
+            SubscriptBox[
+             StyleBox["a", "TI"], 
+             StyleBox["n", "TI"]]}]], "\[LongEqual]", 
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "1"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "1"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "2"]}]], 
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], "2"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "2"], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "3"]}]], "\[Ellipsis]", 
+         SuperscriptBox[
+          StyleBox["f", "TI"], 
+          RowBox[{
+            SubscriptBox[
+             StyleBox["a", "TI"], 
+             StyleBox["n", "TI"]], 
+            SubscriptBox[
+             StyleBox["i", "TI"], 
+             StyleBox["n", "TI"]], 
+            SubscriptBox[
+             StyleBox["i", "TI"], "1"]}]]}], TraditionalForm], "errors" -> {},
+      "input" -> 
+     "F^{a_1 \\dots a_n}=f^{a_1 i_1 i_2}f^{a_2 i_2 i_3} \\dots f^{a_n i_n \
+i_1}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "f3ed2ee5-0ed0-4944-9872-f98e9483d9ee"],
+ ", which represent traces in the adjoint representation as a product of \
+structure constants."
+}], "Text",
+ CellChangeTimes->{{3.9531588700741873`*^9, 3.953158885263074*^9}, {
+  3.953158921700892*^9, 
+  3.9531589440444098`*^9}},ExpressionUUID->"8e2bfc9c-f912-4a57-9b48-\
+c77c54a20974"],
+
+Cell[TextData[{
+ "We simplify contractions within a particular ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["F", "TI"], TraditionalForm], "errors" -> {}, "input" -> "F", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "e2e0e301-b17e-4ac5-9130-9e5223cf4c9c"],
+ " using ",
+ StyleBox["ContractFF", "Input"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.9531589467352457`*^9, 
+  3.953159006799362*^9}},ExpressionUUID->"27e383b0-3655-49cb-9cf5-\
+51ff68472aaf"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr5", "=", 
+  RowBox[{"expr4", "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"FF", "[", "a_", "]"}], ":>", 
+     RowBox[{"ContractFF", "[", 
+      RowBox[{"FF", "[", "a", "]"}], "]"}]}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.953159011783124*^9, 3.953159040544692*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"f137e1d6-76e3-4348-8380-8c29f62ab120"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "4"], " ", 
+   SuperscriptBox["TF", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["CA", "2"], " ", "DA"}], "-", 
+     RowBox[{
+      RowBox[{"ff", "[", 
+       RowBox[{"a5", ",", "a2", ",", "a18"}], "]"}], " ", 
+      RowBox[{"FF", "[", 
+       RowBox[{"{", 
+        RowBox[{"a2", ",", "a18", ",", "a5"}], "}"}], "]"}]}]}], 
+    ")"}]}]}]], "Output",
+ CellChangeTimes->{3.95315904284658*^9, 3.953159188948152*^9, 
+  3.9531598069955*^9, 3.953381242484529*^9, 3.9617787926226892`*^9, 
+  3.966993125720592*^9, 3.966993394000423*^9, 3.966993450498934*^9, 
+  3.9669938478742933`*^9, 3.982857824541333*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"b0ff8ccf-d23c-4aa1-a137-b55bab8702b0"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Now, there should be no adjoint contractions within a particular adjoint \
+trace (i.e. all indices within a ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SuperscriptBox[
+        StyleBox["F", "TI"], 
+        RowBox[{
+          SubscriptBox[
+           StyleBox["a", "TI"], "1"], "\[Ellipsis]", 
+          SubscriptBox[
+           StyleBox["a", "TI"], 
+           StyleBox["n", "TI"]]}]], TraditionalForm], "errors" -> {}, "input" -> 
+     "F^{a_1 \\dots a_n}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "f6caaa0a-a853-4b77-bf15-4faac6d58e50"],
+ " are unique), and we can compute the adjoint trace in terms of symmetric \
+color tensors and smaller traces:"
+}], "Text",
+ CellChangeTimes->{{3.9531590912785482`*^9, 3.9531591570938683`*^9}, {
+  3.953160084010502*^9, 
+  3.953160091627644*^9}},ExpressionUUID->"338fe576-6bca-4dc0-9198-\
+3572dc21d5e7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr6", "=", 
+  RowBox[{"expr5", "/.", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"FF", "[", "a_", "]"}], ":>", 
+     RowBox[{"TraceFF", "[", 
+      RowBox[{"FF", "[", "a", "]"}], "]"}]}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.9531591713999443`*^9, 3.9531591815038023`*^9}, {
+  3.953159225416349*^9, 3.9531592325897923`*^9}, {3.953159331954144*^9, 
+  3.9531593358079023`*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"9ac08564-a41d-4297-aea1-6bc0ab17c757"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "4"], " ", 
+   SuperscriptBox["TF", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["CA", "2"], " ", "DA"}], "-", 
+     RowBox[{
+      FractionBox["1", "2"], " ", "CA", " ", 
+      RowBox[{"ff", "[", 
+       RowBox[{"a2", ",", "a18", ",", "a5"}], "]"}], " ", 
+      RowBox[{"ff", "[", 
+       RowBox[{"a5", ",", "a2", ",", "a18"}], "]"}]}]}], ")"}]}]}]], "Output",\
+
+ CellChangeTimes->{
+  3.9531591836679296`*^9, {3.9531592186989822`*^9, 3.953159233889892*^9}, 
+   3.953159336558*^9, 3.953159807012897*^9, 3.953381242510973*^9, 
+   3.961778794666718*^9, 3.966993125760209*^9, 3.966993394037114*^9, 
+   3.966993450539236*^9, 3.9669938479132833`*^9, 3.982857826881968*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"bfe10c53-5934-438a-bdc0-dcaaf09abe77"]
+}, Open  ]],
+
+Cell["Then, we repeat by finding (smaller) adjoint traces:", "Text",
+ CellChangeTimes->{{3.953159353056456*^9, 
+  3.953159370836578*^9}},ExpressionUUID->"b3daf180-f41c-42e3-a9bb-\
+b32d22384ccd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr7", "=", 
+  RowBox[{"ToFFLoopForm", "[", "expr6", "]"}]}]], "Input",
+ CellChangeTimes->{{3.953159373139262*^9, 3.953159383506147*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"defb7204-e4a4-4507-9afb-6b26055ea323"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "8"], " ", 
+   SuperscriptBox["CA", "2"], " ", "DA", " ", 
+   SuperscriptBox["TF", "2"]}]}]], "Output",
+ CellChangeTimes->{3.95315938380886*^9, 3.9531598070654297`*^9, 
+  3.953381242574872*^9, 3.9617787961884747`*^9, 3.966993125839837*^9, 
+  3.966993394078163*^9, 3.966993450634717*^9, 3.96699384797993*^9, 
+  3.9828578291083*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"59b14948-fe62-49d9-b41f-d88670dd0868"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Since the adjoint trace found here was minimal (i.e.  ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       SuperscriptBox[
+        RowBox[{"(", 
+          SuperscriptBox[
+           StyleBox["f", "TI"], 
+           RowBox[{
+             StyleBox["a", "TI"], 
+             StyleBox["b", "TI"], 
+             StyleBox["c", "TI"]}]], ")"}], "2"], TraditionalForm], 
+     "errors" -> {}, "input" -> "\\left(f^{a b c}\\right)^2", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "484fe764-e7e4-430e-a96b-a20f2b9f9610"],
+ "), it was immediately simplified to the adjoint quadratic Casimir. That \
+is:"
+}], "Text",
+ CellChangeTimes->{{3.9531594228185062`*^9, 3.9531594909022503`*^9}, {
+  3.95315952317238*^9, 
+  3.9531595766528883`*^9}},ExpressionUUID->"b0d001af-407b-4f28-89b6-\
+205a3e03d9a9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ToFFLoopForm", "[", 
+  RowBox[{
+   RowBox[{"ff", "[", 
+    RowBox[{"a2", ",", "a18", ",", "a5"}], "]"}], " ", 
+   RowBox[{"ff", "[", 
+    RowBox[{"a5", ",", "a2", ",", "a18"}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.953159578252399*^9, 3.9531595799325*^9}, {
+  3.953160137847324*^9, 3.953160142447515*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"78b34500-22ea-4ec0-9fc6-9da5974b51f0"],
+
+Cell[BoxData[
+ RowBox[{"CA", " ", "DA"}]], "Output",
+ CellChangeTimes->{3.953159581825239*^9, 3.953159807085518*^9, 
+  3.9533812426021023`*^9, 3.961778797682119*^9, 3.966993125878076*^9, 
+  3.966993394114873*^9, 3.966993450674361*^9, 3.966993848017915*^9, 
+  3.982857833304318*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"0511926b-b252-4d37-8977-ba45cfa722cd"]
+}, Open  ]],
+
+Cell[TextData[{
+ "After all fundamental traces have been evaluated (i.e. only adjoint objects \
+left), there is an all-in-one function that handles the full adjoint \
+reduction recursively, ",
+ StyleBox["AdjointReduce", "Input"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.953159595963299*^9, 3.953159682149969*^9}, {
+  3.953381441453553*^9, 
+  3.953381477403274*^9}},ExpressionUUID->"4ee13dbd-09e4-4c5c-82cc-\
+cdb2e3b4926c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AdjointReduce", "[", "expr3", "]"}]], "Input",
+ CellChangeTimes->{{3.953159571311542*^9, 3.953159572098021*^9}, {
+  3.953159634366189*^9, 3.953159643084826*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"3099ff42-cd79-40af-aee3-9a1f96433a2c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"C3FF", " ", "CA"}], "2"]}], "-", 
+  RowBox[{
+   FractionBox["1", "8"], " ", 
+   SuperscriptBox["CA", "2"], " ", "DA", " ", 
+   SuperscriptBox["TF", "2"]}]}]], "Output",
+ CellChangeTimes->{3.953159643683413*^9, 3.953159807207705*^9, 
+  3.953381242735263*^9, 3.961778800354075*^9, 3.966993126036175*^9, 
+  3.966993394154985*^9, 3.9669934508274317`*^9, 3.966993848171091*^9, 
+  3.982857836712122*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"dec80116-1f74-4f2f-bf08-f31cfe67b5be"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{Full, Full},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules-><|"TryRealOnly" -> False|>,
+Magnification:>1.5 Inherited,
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"5ab21246-0577-4ecd-8a1b-886d389a8c27"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 158, 3, 146, "Title",ExpressionUUID->"3377bf39-fe48-4d87-b1bc-39c96dd9bdc3"],
+Cell[583, 20, 619, 13, 122, "Text",ExpressionUUID->"9ce1088c-ea27-4f67-b33f-78dd2e8a6407"],
+Cell[CellGroupData[{
+Cell[1227, 37, 167, 3, 101, "Section",ExpressionUUID->"4295f11d-0ca6-40ed-9b40-3d321e2b7b93"],
+Cell[CellGroupData[{
+Cell[1419, 44, 167, 3, 81, "Subsection",ExpressionUUID->"d2831429-f26b-4598-8702-aa989a032914"],
+Cell[1589, 49, 286, 8, 53, "Text",ExpressionUUID->"ce897342-a90d-4b58-8d07-1e5fa1c259da"],
+Cell[CellGroupData[{
+Cell[1900, 61, 278, 5, 46, "Input",ExpressionUUID->"c9e7935c-ed80-42d9-9e49-e5901ec6b946"],
+Cell[2181, 68, 960, 13, 52, "Output",ExpressionUUID->"40d25592-43ad-4203-9f9d-4033df0fdfe0"]
+}, Open  ]],
+Cell[3156, 84, 224, 4, 53, "Text",ExpressionUUID->"f15d803f-b458-4439-befe-ec007b866235"],
+Cell[CellGroupData[{
+Cell[3405, 92, 265, 4, 46, "Input",ExpressionUUID->"e5d5822a-d0e4-4e08-9047-5f7d3da2dedb"],
+Cell[CellGroupData[{
+Cell[3695, 100, 570, 12, 36, "Print",ExpressionUUID->"2751a0df-2378-4389-9a49-2992d980f076"],
+Cell[4268, 114, 393, 7, 36, "Print",ExpressionUUID->"0a564297-6418-4207-a452-6301405c0456"],
+Cell[4664, 123, 399, 7, 36, "Print",ExpressionUUID->"bd9fd336-b160-470c-8afa-37b89b9e72e7"],
+Cell[5066, 132, 499, 9, 66, "Print",ExpressionUUID->"0bb863ef-b0b9-481b-b76b-9b3920fb5dca"]
+}, Open  ]]
+}, Open  ]],
+Cell[5592, 145, 274, 6, 53, "Text",ExpressionUUID->"c18c0cd6-0411-47e5-932f-15a06412c7c7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5903, 156, 212, 4, 81, "Subsection",ExpressionUUID->"1c3c57b3-871f-42c6-b4c5-a79b30157352"],
+Cell[6118, 162, 446, 10, 88, "Text",ExpressionUUID->"3c79e78c-b491-4b73-8146-1e1e5ad8560b"],
+Cell[CellGroupData[{
+Cell[6589, 176, 247, 4, 46, "Input",ExpressionUUID->"b440b548-1d13-4817-8b5a-a0e6e0940efa"],
+Cell[6839, 182, 22720, 548, 487, "Output",ExpressionUUID->"7099c2b2-ba04-47ec-9d42-ebfc2c0b5636"]
+}, Open  ]],
+Cell[29574, 733, 421, 9, 88, "Text",ExpressionUUID->"788b986f-4c44-4383-8435-7138b12aa5c8"],
+Cell[CellGroupData[{
+Cell[30020, 746, 191, 3, 46, "Input",ExpressionUUID->"017194f1-0cbb-464c-87d6-d94914927702"],
+Cell[30214, 751, 16500, 353, 217, "Output",ExpressionUUID->"cf3eb26d-665b-4046-87d4-1bced72bf8a1"]
+}, Open  ]],
+Cell[46729, 1107, 146, 3, 53, "Text",ExpressionUUID->"36412f8a-6093-4711-b130-d8b94051698d"],
+Cell[CellGroupData[{
+Cell[46900, 1114, 219, 4, 46, "Input",ExpressionUUID->"e123d382-9db3-47bb-a294-bbaf021f9056"],
+Cell[47122, 1120, 32532, 708, 176, "Output",ExpressionUUID->"3950696f-ebf7-425e-a7c1-5e3c135b3ad2"]
+}, Open  ]],
+Cell[79669, 1831, 188, 3, 53, "Text",ExpressionUUID->"6cb35255-9282-4bef-9749-89819cd0b113"],
+Cell[CellGroupData[{
+Cell[79882, 1838, 198, 3, 46, "Input",ExpressionUUID->"4d8956f4-beea-4a1e-a434-fdba1a2afba5"],
+Cell[80083, 1843, 26668, 572, 298, "Output",ExpressionUUID->"569bfac7-2eed-4048-bb23-371667f26587"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[106812, 2422, 225, 4, 101, "Section",ExpressionUUID->"0b4ff137-0072-4f6a-88ca-a4120eb37133"],
+Cell[107040, 2428, 181, 3, 53, "Text",ExpressionUUID->"f6af881f-d842-43ee-933e-bdaf7e03cfd8"],
+Cell[107224, 2433, 20691, 344, 223, "Text",ExpressionUUID->"ee9123f1-25c0-464b-b74c-7b005447c568"],
+Cell[127918, 2779, 6346, 180, 237, "Text",ExpressionUUID->"4a9f8484-3fe7-4fb3-80ea-7bdb86a9836b"],
+Cell[134267, 2961, 1173, 31, 78, "Input",ExpressionUUID->"21ffe268-9f3d-4c7f-a04f-05b9e777c5de"],
+Cell[135443, 2994, 541, 12, 88, "Text",ExpressionUUID->"833c65d2-88ef-416c-9710-719eeaf1eb12"],
+Cell[CellGroupData[{
+Cell[136009, 3010, 270, 7, 81, "Subsection",ExpressionUUID->"79936e26-276a-458d-ad25-96b4066cbe85"],
+Cell[136282, 3019, 352, 7, 88, "Text",ExpressionUUID->"03cc97b1-ca13-43d8-b6e4-b83321fd1b38"],
+Cell[CellGroupData[{
+Cell[136659, 3030, 295, 5, 46, "Input",ExpressionUUID->"f5074022-c254-4263-af77-51688a100f7e"],
+Cell[136957, 3037, 700, 15, 70, "Output",ExpressionUUID->"e819506d-2490-421c-a2d3-23d385489c0a"]
+}, Open  ]],
+Cell[137672, 3055, 596, 15, 88, "Text",ExpressionUUID->"198a944f-49c8-447d-a58f-c938e7f463de",
+ InitializationCell->True],
+Cell[138271, 3072, 998, 27, 55, "Text",ExpressionUUID->"5974f817-db50-4ebc-babd-f90e8e2b3b29"],
+Cell[CellGroupData[{
+Cell[139294, 3103, 242, 4, 46, "Input",ExpressionUUID->"bda27b4e-3e27-46bc-9762-d902542cac09"],
+Cell[139539, 3109, 343, 10, 74, "Output",ExpressionUUID->"72806a01-e678-4eec-aa35-366d7195d0ae"]
+}, Open  ]],
+Cell[139897, 3122, 779, 19, 55, "Text",ExpressionUUID->"6c1cc072-d3ae-48ee-8b9a-7a79611655fe"],
+Cell[CellGroupData[{
+Cell[140701, 3145, 245, 4, 46, "Input",ExpressionUUID->"dda86930-4585-4975-bb9e-28b352edaf7b"],
+Cell[140949, 3151, 530, 13, 74, "Output",ExpressionUUID->"1f9c78d1-8bc7-4932-9fbc-5678e6467132"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[141528, 3170, 195, 3, 81, "Subsection",ExpressionUUID->"ae7f2d4c-2006-40f5-a0b5-4b75456e8821"],
+Cell[141726, 3175, 334, 7, 53, "Text",ExpressionUUID->"64aea5f0-feb1-43d2-988c-95bc24a79e14"],
+Cell[142063, 3184, 708, 20, 58, "Text",ExpressionUUID->"d1be5f05-d567-452d-9082-2b70dbfca86d"],
+Cell[CellGroupData[{
+Cell[142796, 3208, 243, 4, 46, "Input",ExpressionUUID->"2737c281-c61a-4345-8858-c5fac6070196"],
+Cell[143042, 3214, 780, 20, 52, "Output",ExpressionUUID->"67a2cd89-82e1-49a4-9c23-2c36ffa94019"]
+}, Open  ]],
+Cell[143837, 3237, 1429, 37, 55, "Text",ExpressionUUID->"ffe12897-f895-4895-9623-c24f635684a4"],
+Cell[145269, 3276, 2415, 60, 126, "Text",ExpressionUUID->"9c3f0bf4-b415-4b1d-8d1f-dc2307fd1804"],
+Cell[CellGroupData[{
+Cell[147709, 3340, 625, 15, 78, "Input",ExpressionUUID->"606b03b0-2cef-4baa-8db2-97ca6c88a0c8"],
+Cell[148337, 3357, 852, 22, 69, "Output",ExpressionUUID->"b76dda28-1fcc-4cb3-82e5-7fdffb36c7a4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[149226, 3384, 754, 18, 78, "Input",ExpressionUUID->"a60f99ad-1630-4930-a4fb-368b0cec5478"],
+Cell[149983, 3404, 1242, 33, 102, "Output",ExpressionUUID->"4cccc626-98c7-4b3f-97f8-51420b81ea78"]
+}, Open  ]],
+Cell[151240, 3440, 1485, 38, 91, "Text",ExpressionUUID->"cc4208f0-fdb4-4719-be36-a7cdcbd79199"],
+Cell[152728, 3480, 885, 20, 90, "Text",ExpressionUUID->"30c428c2-2b33-4a07-88d8-115c01b207ba"],
+Cell[CellGroupData[{
+Cell[153638, 3504, 503, 13, 46, "Input",ExpressionUUID->"967283b2-1566-4d12-843c-19042f93da41"],
+Cell[154144, 3519, 1103, 26, 70, "Output",ExpressionUUID->"bc7015dd-7112-4671-9bb1-67eb32339454"]
+}, Open  ]],
+Cell[155262, 3548, 366, 8, 53, "Text",ExpressionUUID->"540db91e-3fb4-4932-894a-e49feee6b33b"],
+Cell[CellGroupData[{
+Cell[155653, 3560, 241, 4, 46, "Input",ExpressionUUID->"869623c0-f77c-4740-b608-4a97ec78b754"],
+Cell[155897, 3566, 626, 16, 69, "Output",ExpressionUUID->"b0d8a063-d8de-4aa7-8d5d-018ad4389bf5"]
+}, Open  ]],
+Cell[156538, 3585, 1919, 55, 90, "Text",ExpressionUUID->"8e2bfc9c-f912-4a57-9b48-c77c54a20974"],
+Cell[158460, 3642, 532, 15, 54, "Text",ExpressionUUID->"27e383b0-3655-49cb-9cf5-51ff68472aaf"],
+Cell[CellGroupData[{
+Cell[159017, 3661, 382, 9, 46, "Input",ExpressionUUID->"f137e1d6-76e3-4348-8380-8c29f62ab120"],
+Cell[159402, 3672, 844, 23, 69, "Output",ExpressionUUID->"b0ff8ccf-d23c-4aa1-a137-b55bab8702b0"]
+}, Open  ]],
+Cell[160261, 3698, 937, 23, 90, "Text",ExpressionUUID->"338fe576-6bca-4dc0-9198-3572dc21d5e7"],
+Cell[CellGroupData[{
+Cell[161223, 3725, 485, 11, 46, "Input",ExpressionUUID->"9ac08564-a41d-4297-aea1-6bc0ab17c757"],
+Cell[161711, 3738, 912, 24, 70, "Output",ExpressionUUID->"bfe10c53-5934-438a-bdc0-dcaaf09abe77"]
+}, Open  ]],
+Cell[162638, 3765, 194, 3, 53, "Text",ExpressionUUID->"b3daf180-f41c-42e3-a9bb-b32d22384ccd"],
+Cell[CellGroupData[{
+Cell[162857, 3772, 241, 4, 46, "Input",ExpressionUUID->"defb7204-e4a4-4507-9afb-6b26055ea323"],
+Cell[163101, 3778, 543, 13, 70, "Output",ExpressionUUID->"59b14948-fe62-49d9-b41f-d88670dd0868"]
+}, Open  ]],
+Cell[163659, 3794, 870, 23, 56, "Text",ExpressionUUID->"b0d001af-407b-4f28-89b6-205a3e03d9a9"],
+Cell[CellGroupData[{
+Cell[164554, 3821, 418, 9, 46, "Input",ExpressionUUID->"78b34500-22ea-4ec0-9fc6-9da5974b51f0"],
+Cell[164975, 3832, 360, 6, 52, "Output",ExpressionUUID->"0511926b-b252-4d37-8977-ba45cfa722cd"]
+}, Open  ]],
+Cell[165350, 3841, 421, 10, 88, "Text",ExpressionUUID->"4ee13dbd-09e4-4c5c-82cc-cdb2e3b4926c"],
+Cell[CellGroupData[{
+Cell[165796, 3855, 264, 4, 46, "Input",ExpressionUUID->"3099ff42-cd79-40af-aee3-9a1f96433a2c"],
+Cell[166063, 3861, 545, 13, 70, "Output",ExpressionUUID->"dec80116-1f74-4f2f-bf08-f31cfe67b5be"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
