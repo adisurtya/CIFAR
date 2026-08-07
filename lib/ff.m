@@ -126,34 +126,34 @@ ff /: ff[a_, b_, c_] ^ 2 :=
 
 (*Double contractions between symmetric and antisymmetrics tensors must equal zero *)
 
-ff /: ff[x_, y_, z_] dF[a___, x_, b___, y_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, x_, b___, y_, c___]:=
     0;
-ff /: ff[x_, y_, z_] dF[a___, y_, b___, x_, c___] :=
-    0;
-            
-ff /: ff[x_, y_, z_] dF[a___, x_, b___, z_, c___] :=
-    0;
-ff /: ff[x_, y_, z_] dF[a___, z_, b___, x_, c___] :=
-    0;
-
-ff /: ff[x_, y_, z_] dF[a___, y_, b___, z_, c___] :=
-    0;
-ff /: ff[x_, y_, z_] dF[a___, z_, b___, y_, c___] :=
-    0;
-
-ff /: ff[x_, y_, z_] dA[a___, x_, b___, y_, c___] :=
-    0;
-ff /: ff[x_, y_, z_] dA[a___, y_, b___, x_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, y_, b___, x_, c___]:=
     0;
             
-ff /: ff[x_, y_, z_] dA[a___, x_, b___, z_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, x_, b___, z_, c___]:=
     0;
-ff /: ff[x_, y_, z_] dA[a___, z_, b___, x_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, z_, b___, x_, c___]:=
     0;
 
-ff /: ff[x_, y_, z_] dA[a___, y_, b___, z_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, y_, b___, z_, c___]:=
     0;
-ff /: ff[x_, y_, z_] dA[a___, z_, b___, y_, c___] :=
+ff /: ff[x_, y_, z_] dF[a___, z_, b___, y_, c___]:=
+    0;
+
+ff /: ff[x_, y_, z_] dA[a___, x_, b___, y_, c___]:=
+    0;
+ff /: ff[x_, y_, z_] dA[a___, y_, b___, x_, c___]:=
+    0;
+            
+ff /: ff[x_, y_, z_] dA[a___, x_, b___, z_, c___]:=
+    0;
+ff /: ff[x_, y_, z_] dA[a___, z_, b___, x_, c___]:=
+    0;
+
+ff /: ff[x_, y_, z_] dA[a___, y_, b___, z_, c___]:=
+    0;
+ff /: ff[x_, y_, z_] dA[a___, z_, b___, y_, c___]:=
     0;
 (*    ff /: ff[x_, y_, z_] dF[a___, x_, y_] :=
     0;
@@ -290,7 +290,9 @@ ff /: dF[a_, b_, i_] ff[z_, j_, a_] ff[z_, k_, b_] :=
 
 (*for adjoint d's*)
 
-ff /: dA[a_, b_, i_] ff[a_, j_, z_] ff[b_, k_, z_] :=
+(*Not necessary as odd-indexed adjoint d's evaluate to zero*)
+
+(*ff /: dA[a_, b_, i_] ff[a_, j_, z_] ff[b_, k_, z_] :=
     1/2 CA dA[i, j, k];
 
 ff /: dA[a_, b_, i_] ff[a_, j_, z_] ff[b_, z_, k_] :=
@@ -396,7 +398,7 @@ ff /: dA[a_, b_, i_] ff[z_, b_, k_] ff[z_, j_, a_] :=
     -(1/2) CA dA[i, j, k];
 
 ff /: dA[a_, b_, i_] ff[z_, j_, a_] ff[z_, k_, b_] :=
-    1/2 CA dA[i, j, k];
+    1/2 CA dA[i, j, k];*)
 
 
 (*Triangle identities*)

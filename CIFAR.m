@@ -11,7 +11,7 @@ BeginPackage["CIFAR`"];
 (*Print out*)
 
 
-$CIFARVersion = "1.2.1";
+$CIFARVersion = "1.3.0";
 $CIFARPath = DirectoryName[$InputFileName];
 
 
@@ -947,7 +947,7 @@ TraceTT[expr_]:=expr;
 
 (*identify structure constant loops in expression*)
 
-ToFFLoopForm[expr_] :=
+(*ToFFLoopForm[expr_] :=
     Module[{result = 0, resultList = List @@ (Expand[expr] + zero) /.
          zero -> 0, exprInds, exprCoef, uncontInd, contInds, FFInds = {}, inIndex,
          outIndex, posNextInd, OnlyDoubleCont, WhereCont, NotContffPos, SingleContPos,
@@ -1117,11 +1117,62 @@ ToFFLoopForm[expr_] :=
             ,
             Return[Total[ToFFLoopForm /@ resultList]];
         ]
-    ]];
+    ]];*)
 
 
 (*Assert that loop with one index is zero (by antisymmetry of f)*)
 FF/:FF[{a_}] :=0
+
+
+(*Helper functions for *)
+GetffList[expr_Times]:=Module[{exprList=List@@expr/.ff[a_,b_,c_]^2->Sequence[ff[a,b,c],ff[a,b,c]],ffList,otherTerms},
+ffList=Cases[exprList,_ff];
+otherTerms= Times @@ DeleteCases[exprList, _ff];
+{ffList,otherTerms}
+];
+
+GetffGraph[ffList_List]:=Module[{incidences,contractions,edges,tags},incidences=Flatten[MapIndexed[Function[{f,pos},Thread[List@@f->First[pos]]],ffList]];
+contractions=Select[GatherBy[incidences,First],Length[#]==2&];
+tags=contractions[[All,1,1]];
+edges=UndirectedEdge@@@(contractions[[All,All,2]]);
+EdgeTaggedGraph[Range[Length[ffList]],edges->tags,VertexLabels->"Name",EdgeLabels->"EdgeTag"]]
+
+
+FindSmallestFFLoop[expr_Plus]:=FindSmallestFFLoop/@Expand[expr];
+
+FindSmallestFFLoop[ff[a_,b_,c_]^2]:=-FF[{a,a}];
+
+FindSmallestFFLoop[expr_Times]:=
+Module[{result={},ffList,otherTerms,ffGraph,cycle,sign=1},
+
+(*Look at ff terms for contractions*)
+{ffList,otherTerms}=GetffList[expr];
+
+ffGraph=GetffGraph[ffList];
+
+(*Find smallest trace*)
+Do[cycle=FindCycle[ffGraph,{cycleLength}];
+If[Length[cycle]=!=0,Break[]];
+,{cycleLength,2,Length[ffList]}];
+If[Length[cycle]===0,Return[expr]];
+cycle=First@cycle;
+otherTerms*=Times@@Delete[ffList,List/@First/@cycle];
+
+(*Build result*)
+Do[
+Module[{thisffIndices=List@@ffList[[cycle[[iter]][[2]]]],cycleIndices=Last/@cycle[[{iter,Mod[iter,Length[cycle]]+1}]],traceIndex},
+traceIndex=First@Complement[List@@thisffIndices,cycleIndices];
+
+sign*=BooleSign@(Equal@@CIFAR`Private`CyclicQ/@{thisffIndices,Prepend[cycleIndices,traceIndex]});
+
+result= Append[result,traceIndex];
+],{iter,Length[cycle]}];
+
+(*Combine all ingredients*)
+sign otherTerms FF[result]
+];
+
+FindSmallestFFLoop[expr_] := expr;
 
 
 (*Evaluating contractions within structure constant loops*)
@@ -1332,17 +1383,19 @@ AdjointReduce[expr_, fullyContractedQ_:False, opts : OptionsPattern[]
             {ff, FF, deltaA, dA, dF}
             ,
             (*Get UpValues for Adjoint objects*)
+            Get[$CIFARPath <> "lib/Attributes.m"];
             Get[$CIFARPath <> "lib/ff.m"];
             Get[$CIFARPath <> "lib/FFLoop.m"];
             Get[$CIFARPath <> "lib/deltaA.m"];
-            Get[$CIFARPath <> "lib/dA.m"];
             Get[$CIFARPath <> "lib/dF.m"];
+            Get[$CIFARPath <> "lib/dA.m"];
+
             SetOptions[TraceFF, Tabulate -> OptionValue[Tabulate]
                 ];
             exprsimp =
                 Collect[
                             (
-                                Expand[((ToFFLoopForm[expr0] /. {FF[aa_
+                                Expand[((FindSmallestFFLoop[expr0] /. {FF[aa_
                                     ] ^ 2 :> Times[ContractFF[FF[aa]], ContractFF[FF[aa]]]}) /. {FF[aa_] 
                                     :> ContractFF[FF[aa]]})] /.
                                     If[OptionValue[Tabulate],
@@ -1367,12 +1420,12 @@ AdjointReduce[expr_, fullyContractedQ_:False, opts : OptionsPattern[]
                 ];
                 n++;
                 expr0 = exprsimp;
-                exprsimp = (((ToFFLoopForm[Expand[exprsimp]] /. {FF[aa_
+                exprsimp = (((FindSmallestFFLoop[Expand[exprsimp]] /. {FF[aa_
                     ] ^ 2 :> Times[ContractFF[FF[aa]], ContractFF[FF[aa]]]}) /. {FF[aa_] 
                     :> ContractFF[FF[aa]]})/. {FF[aa_] ^ 2 :> Times[TraceFF[FF[aa]], TraceFF[FF[aa]]]}) /. {FF[
                     aa_] :> TraceFF[FF[aa]]};
                 exprsimp = StandardizeIndicesLoc[exprsimp];
-                exprsimp = (ToFFLoopForm[Expand[exprsimp]] /. {FF[aa_
+                exprsimp = (FindSmallestFFLoop[Expand[exprsimp]] /. {FF[aa_
                     ] :> ContractFF[FF[aa]]}) /. {FF[aa_] :> TraceFF[FF[aa]]};
                 exprsimp = StandardizeIndicesLoc[exprsimp];
             ];
@@ -1416,13 +1469,16 @@ CIFARReduce[expr_, opts : OptionsPattern[]] :=
             {TT, ff, FF, deltaF, deltaA, dA, dF}
             ,
             (*Get UpValues for all objects*)
+            Get[$CIFARPath <> "lib/Attributes.m"];
             Get[$CIFARPath <> "lib/TT.m"];
             Get[$CIFARPath <> "lib/ff.m"];
             Get[$CIFARPath <> "lib/FFLoop.m"];
             Get[$CIFARPath <> "lib/deltaF.m"];
             Get[$CIFARPath <> "lib/deltaA.m"];
-            Get[$CIFARPath <> "lib/dA.m"];
             Get[$CIFARPath <> "lib/dF.m"];
+            Get[$CIFARPath <> "lib/dA.m"];
+
+
             result = ToTTProductForm[result];
             result = result /. {TT[aa_, ii_, jj_] ^ 2 :> Times[ContractTT[
                 TT[aa, ii, jj]], ContractTT[TT[aa, ii, jj]]]};
