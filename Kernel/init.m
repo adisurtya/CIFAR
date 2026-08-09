@@ -1,6 +1,6 @@
 Get[
     FileNameJoin[{
-        DirectoryName[DirectoryName[$InputFileName]],
-        "CIFAR.m"
+        DirectoryName[$InputFileName],
+        "CIFAR.wl"
     }]
 ];

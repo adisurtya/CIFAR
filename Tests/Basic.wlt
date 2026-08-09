@@ -7,6 +7,12 @@ VerificationTest[
 ]
 
 VerificationTest[
+    CIFAR`$CIFARVersion,
+    Get[FileNameJoin[{ParentDirectory[CIFAR`$CIFARPath], "PacletInfo.wl"}]]["Version"],
+    TestID -> "Package-version-comes-from-paclet-info"
+]
+
+VerificationTest[
     Attributes[CIFAR`dA],
     {Orderless},
     TestID -> "dA-is-orderless"

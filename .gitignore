@@ -5,3 +5,9 @@
 *.autosave
 *.ma
 
+# Wolfram test reports and local cache exports
+Tests/*.mx
+Tests/*.wlt~
+
+# Locally built release archives
+/dist/

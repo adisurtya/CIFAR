@@ -4,54 +4,29 @@ repoRoot = DirectoryName[DirectoryName[$InputFileName]];
 PacletDirectoryLoad[repoRoot];
 Needs["CIFAR`"];
 
-fixtureDirectory = Replace[
-    Quiet[Environment["CIFAR_TEST_FIXTURE_DIR"]],
-    _Missing | $Failed | "" -> FileNameJoin[{$HomeDirectory, "Downloads"}]
-];
-
-todoFixture = FileNameJoin[{fixtureDirectory, "colorToDoMaster.m"}];
-doneFixture = FileNameJoin[{fixtureDirectory, "colorDoneMaster.m"}];
-
-If[
-    !FileExistsQ[todoFixture] || !FileExistsQ[doneFixture],
-    Print["Fixture files not found in: ", fixtureDirectory];
-    Exit[2]
-];
-
-todoExpressions = Get[todoFixture];
-doneExpressions = Get[doneFixture];
-
-shapeMatches = Length /@ todoExpressions === Length /@ doneExpressions;
+cases = Get[FileNameJoin[{repoRoot, "Tests", "Fixtures", "FullRegression.wl"}]];
 
 (* Express results in a common invariant basis before comparison. *)
-invariantIdentity =
-    CIFAR`CF^n_. * CIFAR`DF :>
-        CIFAR`CF^(n - 1) CIFAR`TF CIFAR`DA /;
-            IntegerQ[n] && n >= 1;
+normalize[expr_] := Together[expr /. CIFAR`CF -> CIFAR`TF CIFAR`DA/CIFAR`DF];
 
-equivalentQ[left_, right_] :=
-    Expand[(left /. invariantIdentity) - (right /. invariantIdentity)] === 0;
-
-checks = Flatten[
-    Table[
-        equivalentQ[
-            Quiet[
-                CIFAR`CIFARReduce[
-                    todoExpressions[[group, index]],
-                    CIFAR`UseCache -> False
-                ],
-                CIFAR`Private`FullyContractedQ::nocolorobjects
+equivalentQ[input_, expected_] :=
+    Together[
+        Quiet[
+            CIFAR`CIFARReduce[
+                input,
+                CIFAR`UseCache -> False,
+                CIFAR`EliminateInvariant -> CIFAR`CF
             ],
-            doneExpressions[[group, index]]
-        ],
-        {group, Length[todoExpressions]},
-        {index, DeleteDuplicates[{1, 2, 10, Length[todoExpressions[[group]]]}]}
-    ]
-];
+            CIFAR`Private`FullyContractedQ::nocolorobjects
+        ] - normalize[expected]
+    ] === 0;
 
-passedCount = Count[Prepend[checks, shapeMatches], True];
-failedCount = Count[Prepend[checks, shapeMatches], False];
+sampleIndexes = DeleteDuplicates[Clip[{1, 2, 10, 100, 1000, 10000, Length[cases]}, {1, Infinity}]];
+checks = equivalentQ @@ cases[[#]] & /@ sampleIndexes;
 
-Print["CIFAR fixture tests: ", passedCount, " passed, ", failedCount, " failed"];
+passedCount = Count[checks, True];
+failedCount = Count[checks, False];
+
+Print["CIFAR fixture smoke tests: ", passedCount, " passed, ", failedCount, " failed"];
 
 If[failedCount > 0, Exit[1]];

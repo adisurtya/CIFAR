@@ -2,31 +2,40 @@
 
 CIFAR (Color Invariant Feynman Amplitude Reducer, pronounced "cipher") is a Mathematica package for computing the color factors associated with Feynman diagrams.
 
-## Installation
+## Development
 
-To load, Mathematica needs to be told about the directory where CIFAR
-was installed. For this, we need to define the variable `$CIFARPath` in the
-current Mathematica session before loading the package:
-```
-$CIFARPath = SetDirectory["path/to/CIFAR"];
-<<CIFAR`;
-```
+Load the repository as a development paclet in a fresh kernel:
 
-Alternatively, if one does not want to execute this command in every fresh kernel
-session, it is possible to modify the configuration file Mathematica preloads when
-starting a new kernel.
-Under MacOS the file can be found in (if the file does not exist, just create it)
 ```
-~/Library/Mathematica/Autoload/init.m
-```
-On Unix/Linux systems the file should be at
-```
-~/.Mathematica/Autoload/init.m
+PacletDirectoryLoad["path/to/CIFAR"];
+Needs["CIFAR`"];
 ```
 
-Add the following lines to the appropriate init.m file:
+Run the focused test suite from the repository root:
+
 ```
-$CIFARPath = SetDirectory["path/to/CIFAR"];
-If[Not[MemberQ[$Path, $CIFARPath]],$Path = Append[$Path,$CIFARPath]];
+wolframscript -file Tests/runTests.wls
 ```
-Now it is possible to load CIFAR by executing `<<CIFAR` in a new kernel.
+
+`Tests/runFixtureTests.wls` runs a fast, representative sample from the
+versioned regression fixture. `Tests/runFullRegressionTests.wls` validates all
+26,289 unique cases before a release. Both compare results in the
+`EliminateInvariant -> CF` basis and run without external files.
+
+## Loading
+
+For development, load the repository as a paclet and then load its context:
+
+```
+PacletDirectoryLoad["path/to/CIFAR"];
+Needs["CIFAR`"];
+```
+
+`PacletInfo.wl` declares the package entry point in `Kernel/`, so no manual
+`$Path` or `$CIFARPath` configuration is required.
+
+## Citation
+
+Please cite this software using [CITATION.cff](CITATION.cff). The color-algebra
+method reference used by CIFAR is available through
+[INSPIRE record 467380](https://inspirehep.net/literature/467380).
