@@ -44,10 +44,26 @@ Begin["CIFAR`Indices`"];
 (*Standard indices for the function StandardizeIndices*)
 $StandardIndices={a$,b$,c$,d$,e$,f$,g$,h$,o$,p$,q$,r$,s$,t$,u$,v$,w$,x$,y$,z$,a1$,b1$,c1$,d1$,e1$,f1$,g1$,h1$,o1$,p1$,q1$,r1$,s1$,t1$,u1$,v1$,w1$,x1$,y1$,z1$};
 $StandardFundamentalIndices={i$,j$,k$,l$,m$,n$,i1$,j1$,k1$,l1$,m1$,n1$,i2$,j2$,k2$,l2$,m2$,n2$};
+
+(* Extend the readable standard-name pools deterministically for larger expressions. *)
+StandardIndexPool[n_Integer] := Join[
+    $StandardIndices,
+    Table[Symbol["CIFAR`Indices`a" <> ToString[index] <> "$"],
+        {index, Length[$StandardIndices] + 1, n}]
+];
+
+StandardFundamentalIndexPool[n_Integer] := Join[
+    $StandardFundamentalIndices,
+    Table[Symbol["CIFAR`Indices`i" <> ToString[index] <> "$"],
+        {index, Length[$StandardFundamentalIndices] + 1, n}]
+];
 End[];
 
 
 Begin["`Private`"];
+
+(* The large pure contraction table is immutable; parse it once per kernel. *)
+$FFFFContractionRules = Get[$CIFARPath <> "lib/ffffFFContraction.wl"];
 
 
 (* ::Subtitle:: *)
@@ -112,27 +128,56 @@ Swap[list_, ind1_, ind2_] :=
 FullyContractedQ::nocolorobjects="Evaluation stopped. No color objects detected; expression pre-evaluates to: `1`";
 FullyContractedQ::highcount="Evaluation stopped. Indices that appear 3 or more times: `1`";
 FullyContractedQ::singlecount="Warning: Indices that only appear once: `1`";
+FullyContractedQ::mixedtype="Indices used in both fundamental and adjoint slots: `1`";
 
-FullyContractedQ[expr_Plus]:=And@@(FullyContractedQ/@(List@@expr));
+(* Scalar terms are already fully contracted; validate each colored term independently. *)
+FullyContractedQ[expr_Plus]:=And@@(TrueQ /@ (FullyContractedQ /@ (List@@expr)));
 
-FullyContractedQ[expr_]:=Module[{dummy, colorObjects, colorObjectsExps,inds,tallyList,highCountItems,singleCountItems},
+FullyContractedQ[expr_]:=Module[
+    {dummy, colorObjects, colorObjectsExps, expandedObjects, adjInds, fundInds,
+     adjTally, fundTally, highCountItems, singleCountItems, mixedTypeItems},
 colorObjects=Cases[expr,Alternatives@@{_ff,_TT,_FF,_deltaA,_deltaF,_dF,_dA},All];
 
-If[colorObjects==={}, Message[FullyContractedQ::nocolorobjects,expr]; Return[True];];
+If[colorObjects==={}, Return[True]];
 
 colorObjectsExps=Cases[dummy expr,#^n_.:>n]&/@colorObjects//Flatten;
+expandedObjects=Flatten[MapThread[ConstantArray,{colorObjects,colorObjectsExps}]];
 
-inds=(Delete[0]/@Flatten[MapThread[ConstantArray,{colorObjects,colorObjectsExps}]])//Flatten;
-tallyList=Tally[inds];
+adjInds=Flatten[Join[
+    Cases[expandedObjects, ff[a___]:>{a}, {1}],
+    Cases[expandedObjects, FF[a_List]:>a, {1}],
+    Cases[expandedObjects, deltaA[a___]:>{a}, {1}],
+    Cases[expandedObjects, dA[a___]:>{a}, {1}],
+    Cases[expandedObjects, dF[a___]:>{a}, {1}],
+    Cases[expandedObjects, TT[a_List, i_, j_]:>a, {1}]
+]];
+fundInds=Flatten[Join[
+    Cases[expandedObjects, deltaF[i___]:>{i}, {1}],
+    Cases[expandedObjects, TT[a_List, i_, j_]:>{i, j}, {1}]
+]];
 
-highCountItems=Cases[tallyList,{item_,count_/;count>=3}:>item];
+adjTally=Tally[adjInds];
+fundTally=Tally[fundInds];
+mixedTypeItems=Intersection[DeleteDuplicates[adjInds],DeleteDuplicates[fundInds]];
+If[mixedTypeItems=!={},
+    Message[FullyContractedQ::mixedtype,mixedTypeItems];
+    Return[False]
+];
+
+highCountItems=Join[
+    Cases[adjTally,{item_,count_/;count>=3}:>item],
+    Cases[fundTally,{item_,count_/;count>=3}:>item]
+];
 (*2. Check if any high-count items were found*)
 If[Length[highCountItems]>0,
 (*If yes:Issue error,stop,return $Failed*)
 Message[FullyContractedQ::highcount,highCountItems];
 Return[False];,
 (*If no:Proceed to check for single counts and expand*)
-(*Find items with count==1*)singleCountItems=Cases[tallyList,{item_,1}:>item];
+(*Find items with count==1*)singleCountItems=Join[
+    Cases[adjTally,{item_,1}:>item],
+    Cases[fundTally,{item_,1}:>item]
+];
 (*Issue warning if single-count items were found*)
 If[Length[singleCountItems]>0, Message[FullyContractedQ::singlecount,singleCountItems]; Return[False];]];
 Return[True];];
@@ -180,9 +225,13 @@ GetFundIndex[n_:0] :=
 
 StandardizeIndicesSimple[expr_Plus]:=StandardizeIndicesSimple/@Expand[expr];
 
-StandardizeIndicesSimple[expr_, standardInds_:CIFAR`Indices`$StandardIndices]:=Module[{result, inds},
+StandardizeIndicesSimple[expr_, standardInds_:CIFAR`Indices`$StandardIndices]:=Module[{result, inds, indexPool},
 inds=DeleteDuplicates[Flatten[Delete[0]/@Cases[expr,_ff|_TT|_FF|_deltaA|_deltaF|_dA|_dF,All]]]//Sort;
-result=expr/.Thread[inds->standardInds[[;;Length[inds]]]];
+indexPool=If[Length[standardInds]>=Length[inds],standardInds,
+    Join[standardInds,
+        Drop[CIFAR`Indices`StandardIndexPool[Length[inds]], Length[standardInds]]]
+];
+result=expr/.Thread[inds->indexPool[[;;Length[inds]]]];
 Return[result]
 ]
 
@@ -210,27 +259,31 @@ EdgesToCanonicalGraphStandardization[edges_]:=Module[{g=Graph[edges],canGraph,ca
 canGraph=CanonicalGraph[g];
 canMap=KeySelect[First[FindGraphIsomorphism[g,canGraph]],!IntegerQ[#]&];
 (*intRep = AssociationThread[Sort[Values[canMap]], Range[Length[canMap]]];*)
-intRep = AssociationThread[Sort[Values[canMap]], CIFAR`Indices`$StandardIndices[[Range[Length[canMap]]]]];
+intRep = AssociationThread[
+    Sort[Values[canMap]],
+    CIFAR`Indices`StandardIndexPool[Length[canMap]][[Range[Length[canMap]]]]
+];
 Return[canMap/.intRep]];
 
 
-StandardizeIndices[expr_, OptionsPattern[]] /; FreeQ[expr, ff | TT] :=
+StandardizeIndices[expr_, OptionsPattern[]] /; Head[expr] =!= Plus && FreeQ[expr, ff | TT] :=
     StandardizeIndicesSimple[expr];
 
-StandardizeIndices[expr_, OptionsPattern[]] /; !FreeQ[expr, deltaA | 
+StandardizeIndices[expr_, OptionsPattern[]] /; Head[expr] =!= Plus && !FreeQ[expr, deltaA |
     deltaF | dA | dF | FF] :=
     StandardizeIndicesSimple[expr];
 
-StandardizeIndices[expr_Plus, OptionsPattern[]] :=
-    StandardizeIndices /@ expr;
+StandardizeIndices[expr_Plus, opts : OptionsPattern[]] :=
+    StandardizeIndices[#, opts] & /@ expr;
 
 StandardizeIndices[expr_, OptionsPattern[]] :=
     Module[{fullyContractedQ, dummy, exprList, result, toStandardIndsRep,
          fundIndsCount = 0},
         If[OptionValue[CheckContractions],
-            Check[fullyContractedQ = FullyContractedQ[Expand[expr]], 
+            Check[fullyContractedQ = FullyContractedQ[Expand[expr]],
                 Return[expr], {CIFAR`Private`FullyContractedQ::highcount, CIFAR`Private`FullyContractedQ
-                ::singlecount, CIFAR`Private`FullyContractedQ::nocolorobjects}];
+                ::singlecount, CIFAR`Private`FullyContractedQ::mixedtype,
+                CIFAR`Private`FullyContractedQ::nocolorobjects}];
         ];
         If[!OptionValue[UseGraphStandardization],
             Return[StandardizeIndicesSimple[expr]]
@@ -248,7 +301,7 @@ StandardizeIndices[expr_, OptionsPattern[]] :=
                     TT[a__] :>
                         (
                             fundIndsCount++;
-                            With[{nextInd = CIFAR`Indices`$StandardFundamentalIndices
+                            With[{nextInd = CIFAR`Indices`StandardFundamentalIndexPool[fundIndsCount]
                                 [[fundIndsCount]]},
                                 TT @@ {CIFAR`Indices`$StandardIndices
                                     [[{a}]], nextInd, nextInd}
@@ -257,7 +310,7 @@ StandardizeIndices[expr_, OptionsPattern[]] :=
                 TT[a_, i_, i_] ^ 2 :>
                     (
                         fundIndsCount++;
-                        With[{nextInd = CIFAR`Indices`$StandardFundamentalIndices
+                        With[{nextInd = CIFAR`Indices`StandardFundamentalIndexPool[fundIndsCount]
                             [[fundIndsCount]]},
                             TT[a, i, i] TT[a, nextInd, nextInd]
                         ]
@@ -269,7 +322,7 @@ StandardizeIndices[expr_, OptionsPattern[]] :=
                     TT[a__] :>
                         StandardIndexPermutation[(
                             fundIndsCount++;
-                            With[{nextInd = CIFAR`Indices`$StandardFundamentalIndices
+                            With[{nextInd = CIFAR`Indices`StandardFundamentalIndexPool[fundIndsCount]
                                 [[fundIndsCount]]},
                                 TT @@ {{a}, nextInd, nextInd}
                             ]
@@ -277,7 +330,7 @@ StandardizeIndices[expr_, OptionsPattern[]] :=
                 TT[a_, i_, i_] ^ 2 :>
                     (
                         fundIndsCount++;
-                        With[{nextInd = CIFAR`Indices`$StandardFundamentalIndices
+                        With[{nextInd = CIFAR`Indices`StandardFundamentalIndexPool[fundIndsCount]
                             [[fundIndsCount]]},
                             TT[a, i, i] TT[a, nextInd, nextInd]
                         ]
@@ -291,8 +344,8 @@ StandardizeIndicesAdjoint[expr_, OptionsPattern[]] /; FreeQ[expr, ff | FF| dA| d
 StandardizeIndicesAdjoint[expr_, OptionsPattern[]] /; !FreeQ[expr, deltaA| TT] :=
     StandardizeIndicesSimple[expr];
 
-StandardizeIndicesAdjoint[expr_Plus, OptionsPattern[]] :=
-    StandardizeIndices /@ expr;
+StandardizeIndicesAdjoint[expr_Plus, opts : OptionsPattern[]] :=
+    StandardizeIndicesAdjoint[#, opts] & /@ expr;
     
 StandardizeIndicesAdjoint[expr_] :=
     Module[{result, exprList, toStandardIndsRep},
@@ -515,8 +568,8 @@ IterativeAlgebra[expr_, iterAlgebra_] :=
             expr0 =!= exprsimp
             ,
             If[n > 100,
-                Print["IterativeAlgebra Error: Cannot end loop"];
-                Break[]
+                Message[IterativeAlgebra::nonconvergent];
+                Return[$Failed]
             ];
             n++;
             expr0 = exprsimp;
@@ -524,6 +577,12 @@ IterativeAlgebra[expr_, iterAlgebra_] :=
         ];
         exprsimp
     ];
+
+IterativeAlgebra::nonconvergent =
+    "The iterative algebra did not converge within the configured iteration limit.";
+
+AdjointReduce::nonconvergent =
+    "The adjoint reduction did not converge within the configured iteration limit.";
 
 
 (*Kronecker delta symbol symmetry*)
@@ -701,6 +760,8 @@ ContractTT[TT[a_, i_, j_]] :=
         ]
     ];
 
+ContractTT[deltaF[i_, j_]] := deltaF[i, j];
+
 
 ContractffTT[expr_] :=
     Module[{
@@ -843,10 +904,13 @@ ContractffTT[expr_] :=
 TT /: TT[{a_}, i_, i_] :=
     0;
 
+TraceTT[deltaF[i_, i_], opts: OptionsPattern[]] := DF;
+TraceTT[deltaF[i_, j_], opts: OptionsPattern[]] := deltaF[i, j];
+
 TraceTT[TT[a_List, i_, j_], opts: OptionsPattern[]] /; !DuplicateFreeQ[a] :=
     ContractTT[TT[a, i, j]] /.TT[aa___]:>TraceTT[TT[aa], opts];
 
-TraceTT[TT[a_, i_, j_], OptionsPattern[]] :=
+TraceTT[TT[a_, i_, j_], opts: OptionsPattern[]] :=
     If[(*Check if term is actually a trace (i.e. indicies closed)*)i 
         =!= j,
         Print["Fundamental indicies not closed."];
@@ -935,7 +999,7 @@ TraceTT[TT[a_, i_, j_], OptionsPattern[]] :=
                     ];
                     (*Recursion to evaluate smaller traces*)
                     Return[Expand[result] /. {TT[aa_, ii_, ii_] :> TraceTT[
-                        TT[aa, ii, ii]]}]
+                        TT[aa, ii, ii], opts]}]
                 ];
         ];
     ];
@@ -1179,6 +1243,8 @@ FindSmallestFFLoop[expr_] := expr;
 
 (*Evaluating contractions within structure constant loops*)
 
+ContractFF[FF[{}]] := DA;
+
 ContractFF[FF[a_]] :=
     Module[
         {
@@ -1239,6 +1305,8 @@ ContractFF[FF[a_]] :=
 
 
 (*Evaluating structure constant loops*)    
+TraceFF[FF[{}], opts: OptionsPattern[]] := DA;
+
 TraceFF[FF[a_List], opts: OptionsPattern[]] /; !DuplicateFreeQ[a]:=ContractFF[FF[a]]/.FF[aa_]:>TraceFF[FF[aa], opts];
     
 TraceFF[FF[a_List], opts: OptionsPattern[]] :=
@@ -1319,7 +1387,7 @@ TraceFF[FF[a_List], opts: OptionsPattern[]] :=
                     {iter1, 2, Length[a] - 1}
                 ];
                 (*Recursion to evaluate smaller traces*)
-                Return[result /. {FF[aa_] :> TraceFF[FF[aa]]}];
+                Return[result /. {FF[aa_] :> TraceFF[FF[aa], opts]}];
             ]
         ,
         (*If odd number of indices loop, use trick described above*)
@@ -1353,7 +1421,7 @@ TraceFF[FF[a_List], opts: OptionsPattern[]] :=
                     ,
                     {iter, 1, Length[endPerm] - 1}
                 ];
-                Return[result /. {FF[aa_] :> TraceFF[FF[aa]]}];
+                Return[result /. {FF[aa_] :> TraceFF[FF[aa], opts]}];
             ]
     ];
 
@@ -1392,8 +1460,6 @@ AdjointReduce[expr_, fullyContractedQ_:False, opts : OptionsPattern[]
             Get[$CIFARPath <> "lib/dF.wl"];
             Get[$CIFARPath <> "lib/dA.wl"];
 
-            SetOptions[TraceFF, Tabulate -> OptionValue[Tabulate]
-                ];
             exprsimp =
                 Collect[
                             (
@@ -1401,37 +1467,34 @@ AdjointReduce[expr_, fullyContractedQ_:False, opts : OptionsPattern[]
                                     ] ^ 2 :> Times[ContractFF[FF[aa]], ContractFF[FF[aa]]]}) /. {FF[aa_] 
                                     :> ContractFF[FF[aa]]})] /.
                                     If[OptionValue[Tabulate],
-                                        Get[$CIFARPath <> "lib/ffffFFContraction.wl"
-                                            ]
+                                        $FFFFContractionRules
                                         ,
                                         {}
                                     ]
                             )
                             ,
                             _FF
-                        ] /. {FF[aa_] ^ 2 :> Times[TraceFF[FF[aa]], TraceFF[
-                            FF[aa]]]} /. {FF[aa_] :> TraceFF[FF[aa]]};
+                        ] /. {FF[aa_] ^ 2 :> Times[TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]], TraceFF[
+                            FF[aa], Tabulate -> OptionValue[Tabulate]]]} /. {FF[aa_] :> TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]]};
             exprsimp = StandardizeIndicesLoc[exprsimp];
             Until[
                 expr0 === exprsimp
                 ,
                 If[n > 50,
-                    SetOptions[TraceFF, Tabulate -> True];
-                    Print["AdjointReduce Error: Cannot end loop"];
-                    Break[]
+                    Message[AdjointReduce::nonconvergent];
+                    Return[$Failed]
                 ];
                 n++;
                 expr0 = exprsimp;
                 exprsimp = (((FindSmallestFFLoop[Expand[exprsimp]] /. {FF[aa_
                     ] ^ 2 :> Times[ContractFF[FF[aa]], ContractFF[FF[aa]]]}) /. {FF[aa_] 
-                    :> ContractFF[FF[aa]]})/. {FF[aa_] ^ 2 :> Times[TraceFF[FF[aa]], TraceFF[FF[aa]]]}) /. {FF[
-                    aa_] :> TraceFF[FF[aa]]};
+                    :> ContractFF[FF[aa]]})/. {FF[aa_] ^ 2 :> Times[TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]], TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]]]}) /. {FF[
+                    aa_] :> TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]]};
                 exprsimp = StandardizeIndicesLoc[exprsimp];
                 exprsimp = (FindSmallestFFLoop[Expand[exprsimp]] /. {FF[aa_
-                    ] :> ContractFF[FF[aa]]}) /. {FF[aa_] :> TraceFF[FF[aa]]};
+                    ] :> ContractFF[FF[aa]]}) /. {FF[aa_] :> TraceFF[FF[aa], Tabulate -> OptionValue[Tabulate]]};
                 exprsimp = StandardizeIndicesLoc[exprsimp];
             ];
-            SetOptions[TraceFF, Tabulate -> True];
             Return[exprsimp]
         ]
     ];
@@ -1442,10 +1505,10 @@ If[$KernelID===0,
 $CIFARReduceCache=CreateDataStructure["HashTable"];
 SetSharedVariable[$CIFARReduceCache];
 
-LookupCIFARReduceCache[expr_]:=$CIFARReduceCache["Lookup",Hash[expr]];
+LookupCIFARReduceCache[expr_]:=$CIFARReduceCache["Lookup",HoldComplete[expr]];
 SetSharedFunction[LookupCIFARReduceCache];
 
-UpdateCIFARReduceCache[expr_,result_]:=$CIFARReduceCache["Insert",Hash[expr]->result];
+UpdateCIFARReduceCache[expr_,result_]:=$CIFARReduceCache["Insert",HoldComplete[expr]->result];
 SetSharedFunction[UpdateCIFARReduceCache];
 ]
 
@@ -1460,19 +1523,27 @@ ApplyInvariantElimination[result_, TF] := result /. TF -> CF DF/DA;
 ApplyInvariantElimination[result_, DA] := result /. DA -> CF DF/TF;
 ApplyInvariantElimination[result_, _] := result;
 
+CIFARReduce::badinv =
+    "EliminateInvariant must be one of None, CF, DF, TF, or DA; received `1`.";
+
 
 CIFARReduce[expr_, opts : OptionsPattern[]] :=
     Module[{result, lookup, fullyContractedQ = True},
+        If[!MemberQ[{None, CF, DF, TF, DA}, OptionValue[EliminateInvariant]],
+            Message[CIFARReduce::badinv, OptionValue[EliminateInvariant]];
+            Return[$Failed]
+        ];
+        If[OptionValue[CheckContractions],
+            Check[fullyContractedQ = FullyContractedQ[Expand[expr]],
+                Return[expr], {CIFAR`Private`FullyContractedQ::highcount, CIFAR`Private`FullyContractedQ
+                ::singlecount, CIFAR`Private`FullyContractedQ::mixedtype,
+                CIFAR`Private`FullyContractedQ::nocolorobjects}];
+        ];
         If[OptionValue[UseCache],
             lookup = LookupCIFARReduceCache[expr];
             If[!MatchQ[Head[lookup], Missing],
                 Return[ApplyInvariantElimination[lookup, OptionValue[EliminateInvariant]]]
             ];
-        ];
-        If[OptionValue[CheckContractions],
-            Check[fullyContractedQ = FullyContractedQ[Expand[expr]], 
-                Return[expr], {CIFAR`Private`FullyContractedQ::highcount, CIFAR`Private`FullyContractedQ
-                ::nocolorobjects}];
         ];
         result = Expand[expr];
         Block[
@@ -1495,12 +1566,11 @@ CIFARReduce[expr_, opts : OptionsPattern[]] :=
             result = result /. {TT[aa_, ii_, jj_] :> ContractTT[TT[aa,
                  ii, jj]]};
             result = ContractffTT[result];
-            SetOptions[TraceTT, Tabulate -> OptionValue[Tabulate]];
             result = result /. {TT[aa_, ii_, ii_] ^ 2 :> Times[TraceTT[
-                TT[aa, ii, ii]], TraceTT[TT[aa, ii, ii]]]};
+                TT[aa, ii, ii], Tabulate -> OptionValue[Tabulate]], TraceTT[TT[aa, ii, ii],
+                Tabulate -> OptionValue[Tabulate]] ]};
             result = result /. {TT[aa_, ii_, ii_] :> TraceTT[TT[aa, ii,
-                 ii]]};
-            SetOptions[TraceTT, Tabulate -> True];
+                 ii], Tabulate -> OptionValue[Tabulate]]};
             result = AdjointReduce[result, fullyContractedQ, Tabulate
                  -> OptionValue[Tabulate]];
         ];
@@ -1544,10 +1614,10 @@ If[$KernelID===0,
 $SUncReduceCache=CreateDataStructure["HashTable"];
 SetSharedVariable[$SUncReduceCache];
 
-LookupSUncReduceCache[expr_]:=$SUncReduceCache["Lookup",Hash[expr]];
+LookupSUncReduceCache[expr_]:=$SUncReduceCache["Lookup",HoldComplete[expr]];
 SetSharedFunction[LookupSUncReduceCache];
 
-UpdateSUncReduceCache[expr_,result_]:=$SUncReduceCache["Insert",Hash[expr]->result];
+UpdateSUncReduceCache[expr_,result_]:=$SUncReduceCache["Insert",HoldComplete[expr]->result];
 SetSharedFunction[UpdateSUncReduceCache];
 ]
 
@@ -1566,19 +1636,20 @@ SUncReduce[expr_, OptionsPattern[]] :=
         ,
         fullyContractedQ = True
     },
+        If[OptionValue[CheckContractions],
+            fullyContractedQ = Check[FullyContractedQ[Expand[expr]],
+                Return[expr //. SUncValues], {
+                    CIFAR`Private`FullyContractedQ::highcount,
+                    CIFAR`Private`FullyContractedQ::singlecount,
+                    CIFAR`Private`FullyContractedQ::mixedtype,
+                    CIFAR`Private`FullyContractedQ::nocolorobjects
+                }];
+        ];
         If[OptionValue[UseCache],
             lookup = LookupSUncReduceCache[expr];
             If[!MatchQ[Head[lookup], Missing],
                 Return[lookup]
             ];
-        ];
-        If[OptionValue[CheckContractions],
-            fullyContractedQ = Quiet @ Check[FullyContractedQ[Expand[
-                expr]], Return[expr //. SUncValues], {CIFAR`Private`FullyContractedQ::nocolorobjects
-                }];
-            fullyContractedQ = Check[FullyContractedQ[Expand[expr]], 
-                Return[expr //. SUncValues], {CIFAR`Private`FullyContractedQ::highcount
-                }];
         ];
         result =
             If[fullyContractedQ,
@@ -1606,7 +1677,8 @@ SUncReduce[expr_, OptionsPattern[]] :=
     
                      one
                  seperately*)
-                    Total[SUncReduce /@ resultList]
+                    Total[(SUncReduce[#, UseCache -> OptionValue[UseCache],
+                        CheckContractions -> OptionValue[CheckContractions]] & /@ resultList)]
                 ];
         ];
         If[OptionValue[UseCache],

@@ -13,7 +13,7 @@ DF::usage =
 Protect[DF];
 
 DA::usage = 
-"Protected symbol used to represent the dimension of the fundamental representation \!\(\*SubscriptBox[\"D\", \"A\"]\) of the color group.";
+"Protected symbol used to represent the dimension of the adjoint representation \!\(\*SubscriptBox[\"D\", \"A\"]\) of the color group.";
 Protect[DA];
 
 TF::usage = 
@@ -21,7 +21,7 @@ TF::usage =
 Protect[TF];
 
 CF::usage = 
-"Protected symbol used to represent the quadratic Casimir invariant in the adjoint representation \!\(\*SubscriptBox[\"C\", \"F\"]\).";
+"Protected symbol used to represent the quadratic Casimir invariant in the fundamental representation \!\(\*SubscriptBox[\"C\", \"F\"]\).";
 Protect[CF];
 
 CA::usage = 
@@ -29,23 +29,23 @@ CA::usage =
 Protect[CA];
 
 C3FF::usage = 
-"Protected symbol used to represent the cubic Casimir invariant of two contracted three-index symmetric color tensors in the fundamental representaiton: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"3\"], \"FF\"]\).";
+"Protected symbol used to represent the cubic Casimir invariant of two contracted three-index symmetric color tensors in the fundamental representation: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"3\"], \"FF\"]\).";
 Protect[C3FF];
 
 C4FF::usage = 
-"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors in the fundamental representaiton: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"FF\"]\).";
+"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors in the fundamental representation: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"FF\"]\).";
 Protect[C4FF];
 
 C4AF::usage = 
-"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors, one in the fundamental representaiton and in the one in the adjoint representaiton: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"AF\"]\).";
+"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors, one in the fundamental representation and one in the adjoint representation: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"AF\"]\).";
 Protect[C4AF];
 
 C4AA::usage = 
-"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors in the adjoint representaiton: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"AA\"]\).";
+"Protected symbol used to represent the quartic Casimir invariant of two contracted four-index symmetric color tensors in the adjoint representation: \!\(\*SuperscriptBox[SubscriptBox[\"C\", \"4\"], \"AA\"]\).";
 Protect[C4AA];
 
 nc::usage = 
-"Protected symbol used to represent the number of colors \!\(\*StyleBox[SubscriptBox[\"n\", \"c\"], \"TI\"]\) specfically in the color group \!\(\*RowBox[{\"SU(\", SubscriptBox[\"n\", \"c\"], \")\"}]\).";
+"Protected symbol used to represent the number of colors \!\(\*StyleBox[SubscriptBox[\"n\", \"c\"], \"TI\"]\) specifically in the color group \!\(\*RowBox[{\"SU(\", SubscriptBox[\"n\", \"c\"], \")\"}]\).";
 Protect[nc];
 
 
@@ -109,7 +109,7 @@ The adjoint indices \!\(\*StyleBox[\"a1, ..., an\", \"TI\"]\) should be symbolic
 
 dF::usage = "\!\(\*RowBox[{\"dF\", \"[\", StyleBox[\"a1, ..., an\", \"TI\"], \"]\"}]\) \
 represents a symmetric color tensor in the fundamental representation \
-\!\(\*RowBox[{SuperscriptBox[SubscriptBox[\"d\",\"A\"], \
+\!\(\*RowBox[{SuperscriptBox[SubscriptBox[\"d\",\"F\"], \
 RowBox[{StyleBox[SubscriptBox[\"a\",\"1\"]], \"...\", StyleBox[SubscriptBox[\"a\",\"n\"]]}]]}]\). \
 The adjoint indices \!\(\*StyleBox[\"a1, ..., an\", \"TI\"]\) should be symbolic constants.";
 
@@ -153,7 +153,7 @@ The default option \
 \!\(\*StyleBox[\"UseCache->True\", \"TI\"]\) enables a cache that stores previous results for efficient repeated computations. \
 The default option \
 \!\(\*StyleBox[\"Tabulate->True\", \"TI\"]\) enables the use of tabulated results of various contractions and traces that \
-speeds up the computaiton.";
+speeds up the computation.";
 
 
 SUncReduce::usage = "\!\(\*RowBox[{\"SUncReduce\", \"[\", StyleBox[\"expr\", \"TI\"], \"]\"}]\) \
@@ -177,8 +177,8 @@ The default option \
 \!\(\*StyleBox[\"CheckContractions->True\", \"TI\"]\) ensures that  \!\(\*StyleBox[\"expr\", \"TI\"]\) \
 has fully contracted color indices before proceeding. \
 The default option \
-\!\(\*StyleBox[\"UseGraphStandardization->True\", \"TI\"]\) enables a procedure that uses a graph canonicalization algorithm to find a cannonical map to standard indices. \
-Note that graph standardization is only available for expressions with only fundemental generators \!\(\*StyleBox[\"TT[{a1,...,an},i,j]\", \"TI\"]\) \
+\!\(\*StyleBox[\"UseGraphStandardization->True\", \"TI\"]\) enables a procedure that uses a graph canonicalization algorithm to find a canonical map to standard indices. \
+Note that graph standardization is only available for expressions with only fundamental generators \!\(\*StyleBox[\"TT[{a1,...,an},i,j]\", \"TI\"]\) \
 and structure constants \!\(\*StyleBox[\"ff[{a,b,c}]\", \"TI\"]\). Other color tensors are not supported.";
 
 ToTTProductForm::usage = "\!\(\*RowBox[{\"ToTTProductForm\", \"[\", StyleBox[\"expr\", \"TI\"], \"]\"}]\) \
@@ -190,7 +190,7 @@ RowBox[{StyleBox[SubscriptBox[\"a\",\"1\"]], \"...\", StyleBox[SubscriptBox[\"a\
 ContractTT::usage = "\!\(\*RowBox[{\"ContractTT\", \"[\", StyleBox[\"TT[{a1,...,an},i,j]\", \"TI\"], \"]\"}]\) \
 reduces contractions of adjoint indices within \!\(\*StyleBox[\"{a1,...,an}\", \"TI\"]\).";
 
-ContractffTT::usage = "\!\(\*RowBox[{\"ToTTProductForm\", \"[\", StyleBox[\"expr\", \"TI\"], \"]\"}]\) \
+ContractffTT::usage = "\!\(\*RowBox[{\"ContractffTT\", \"[\", StyleBox[\"expr\", \"TI\"], \"]\"}]\) \
 reduces contractions of doubly contracted adjoint indices between products of fundamental generators \
 and structure constants in \!\(\*StyleBox[\"expr\", \"TI\"]\).";
 
@@ -287,5 +287,5 @@ following functions: \!\(\*StyleBox[\"CIFARReduce\", \"TI\"]\), \
 
 UseGraphStandardization::usage =
 "Option of \!\(\*StyleBox[\"StandardizeIndices\", \"TI\"]\), \ 
-that enables a procedure that uses a graph canonicalization algorithm to find a cannonical map to standard indices.\
+that enables a procedure that uses a graph canonicalization algorithm to find a canonical map to standard indices.\
 The default value is \!\(\*StyleBox[\"True\", \"TI\"]\).";

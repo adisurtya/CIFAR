@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Validate contraction sums term by term, including fundamental/adjoint index
+  domains.
+- Preserve reducer options through recursive tracing and standardization.
+- Add identity base cases for empty `TT` and `FF` chains.
+- Reject invalid `EliminateInvariant` values and report non-convergent reductions.
+- Extend standard-index pools beyond the original fixed limits.
+- Harden in-memory cache keys and validate contractions before cache lookup.
+
+### Added
+
+- Regression tests for previously confirmed counterexamples.
+- A stratified regression runner and manual Wolfram GitHub Actions workflow.
+
 ## 1.3.0 - 2026-08-09
 
 ### Added

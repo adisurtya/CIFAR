@@ -1,0 +1,29 @@
+name: CIFAR Wolfram tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  focused-and-regression:
+    # The runner must provide a licensed Wolfram Engine/wolframscript.
+    # This workflow is manual-only because it executes repository code on a
+    # self-hosted runner.
+    runs-on: [self-hosted, macOS, wolfram]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check patch formatting
+        run: git diff --check
+
+      - name: Run focused tests
+        run: wolframscript -file Tests/runTests.wls
+
+      - name: Run fixture smoke tests
+        run: wolframscript -file Tests/runFixtureTests.wls
+
+      - name: Run stratified regression tests
+        run: wolframscript -file Tests/runStratifiedRegressionTests.wls
+
+      - name: Run full regression tests
+        run: wolframscript -file Tests/runFullRegressionTests.wls

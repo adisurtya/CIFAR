@@ -6,7 +6,8 @@ PacletDirectoryLoad[repoRoot];
 testFiles = {
     "Basic.wlt",
     "AdjointReduce.wlt",
-    "DefinitionIntegrity.wlt"
+    "DefinitionIntegrity.wlt",
+    "Counterexamples.wlt"
 };
 
 report = TestReport[FileNameJoin[{repoRoot, "Tests", #}] & /@ testFiles];
